@@ -1,25 +1,32 @@
 {
   "name": "smartcal",
-  "version": "1.0.0",
-  "description": "",
-  "main": "./dist/index.js",
-  "types":"./dist/index.d.ts",
+  "version": "1.0.1",
+  "description": "SmartCal is a lightweight and powerful library for evaluating complex mathematical expressions dynamically. It supports tokenization, parsing, and interpreting mathematical formulas seamlessly, offering flexibility to integrate custom data objects for dynamic calculations. Ideal for developers needing a robust calculation engine in JavaScript/TypeScript projects.",
+  "main": "./index.js",
+  "types": "./index.d.ts",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/nXhermane/SmartCal.git"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack && node clean-empty-dirs.js",
-    "build:doc:html":"npx documentation build ./**/*.ts -f html -o docs",
-    "build:doc:md":"npx documentation build ./**/*.ts -f md -o docs/Readme.md"
+    "build:doc:html": "npx documentation build ./**/*.ts -f html -o docs",
+    "build:doc:md": "npx documentation build ./**/*.ts -f md -o docs/Readme.md"
   },
   "keywords": [
-    "rule",
-    "interpretor",
-    "nutrixnap",
-    "nutriwell",
-    "nutrition"
+    "smartcal",
+    "math",
+    "calculation",
+    "expression-parser",
+    "expression-evaluator",
+    "math-parser",
+    "dynamic-calculations",
+    "tokenization",
+    "formula-interpreter",
+    "typescript",
+    "javascript",
+    "math-engine",
+    "nutriwell"
   ],
   "author": "nXhermane",
   "license": "ISC",
@@ -42,7 +49,5 @@
     "terser-webpack-plugin": "^5.3.10",
     "wepack-cli": "^0.0.1-security"
   },
-  "dependencies": {
-    "antlr4": "^4.13.2"
-  }
+  "dependencies": {}
 }

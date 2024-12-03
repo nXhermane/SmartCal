@@ -20,11 +20,15 @@ return /******/ (() => { // webpackBootstrap
 
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.REGEX = void 0;
+exports.ConditionResult = exports.REGEX = void 0;
 exports.REGEX = {
     formularOperatorG: /(<=|>=|==|\|\||&&|!=|[+/\-*=()<>?:])/g,
     formularOperator: /(<=|>=|==|\|\||&&|!=|[+/\-*=()<>?!:])/,
     formularFieldName: /f_[\w]/,
+};
+exports.ConditionResult = {
+    True: 1,
+    False: 0
 };
 
 
@@ -431,11 +435,34 @@ exports.LiteralValue = LiteralValue;
 
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports["default"] = SmartCalc;
+exports.isValidExpression = isValidExpression;
+exports["default"] = SmartCal;
 const FormularParser_1 = __webpack_require__(/*! ./parser/FormularParser */ "./parser/FormularParser.ts");
 const FormularTokeniser_1 = __webpack_require__(/*! ./tokeniser/FormularTokeniser */ "./tokeniser/FormularTokeniser.ts");
 const FormularInterpreter_1 = __webpack_require__(/*! ./interpreter/FormularInterpreter */ "./interpreter/FormularInterpreter.ts");
-function SmartCalc(expression, obj) {
+/**
+ * Verify if the given expression is valid formular
+ * @param expression expression to evaluate
+ * @returns {boolean} true if the expression is valid
+ */
+function isValidExpression(expression) {
+    const fTokeniser = new FormularTokeniser_1.FormularTokeniser();
+    const fParser = new FormularParser_1.FormularParser();
+    return fParser.isValidFormular(fTokeniser.execute(expression));
+}
+/**
+ * Evaluates a mathematical expression and returns the result.
+ *
+ * This function parses and interprets a mathematical formula represented as a string,
+ * applying dynamic values from a given object to resolve variables or conditions within the expression.
+ *
+ * @template T - A generic type representing the structure of the input object. Keys are variable names, and values can be numbers, strings, or arrays.
+ * @param {string} expression - The mathematical expression to be evaluated.
+ *        Variables in the expression should correspond to keys in the `obj` parameter.
+ * @param {T} obj - An object containing the values of the variables referenced in the expression.
+ * @returns {number | string | any[]} - The result of the evaluated expression, which can be a number, a string, or an array depending on the expression's logic.
+ */
+function SmartCal(expression, obj) {
     const fTokeniser = new FormularTokeniser_1.FormularTokeniser();
     const fParser = new FormularParser_1.FormularParser();
     const fInterpreter = new FormularInterpreter_1.FormularInterpreter();
@@ -568,11 +595,41 @@ exports.FormularInterpreter = FormularInterpreter;
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || (function () {
+    var ownKeys = function(o) {
+        ownKeys = Object.getOwnPropertyNames || function (o) {
+            var ar = [];
+            for (var k in o) if (Object.prototype.hasOwnProperty.call(o, k)) ar[ar.length] = k;
+            return ar;
+        };
+        return ownKeys(o);
+    };
+    return function (mod) {
+        if (mod && mod.__esModule) return mod;
+        var result = {};
+        if (mod != null) for (var k = ownKeys(mod), i = 0; i < k.length; i++) if (k[i] !== "default") __createBinding(result, mod, k[i]);
+        __setModuleDefault(result, mod);
+        return result;
+    };
+})();
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.FormularTokeniser = exports.AstNode = exports.FormularParser = exports.FormularInterpreter = exports.LiteralValue = exports.FieldReference = exports.ExpressionConstructor = exports.Expression = exports.ConditionalExpression = exports.BinaryOperation = void 0;
+exports.isValidExpression = exports.ConditionResult = exports.FormularTokeniser = exports.AstNode = exports.FormularParser = exports.FormularInterpreter = exports.LiteralValue = exports.FieldReference = exports.ExpressionConstructor = exports.Expression = exports.ConditionalExpression = exports.BinaryOperation = void 0;
 const BinaryOperation_1 = __webpack_require__(/*! ./expression/BinaryOperation */ "./expression/BinaryOperation.ts");
 Object.defineProperty(exports, "BinaryOperation", ({ enumerable: true, get: function () { return BinaryOperation_1.BinaryOperation; } }));
 const ConditionalExpression_1 = __webpack_require__(/*! ./expression/ConditionalExpression */ "./expression/ConditionalExpression.ts");
@@ -592,7 +649,10 @@ Object.defineProperty(exports, "FormularParser", ({ enumerable: true, get: funct
 Object.defineProperty(exports, "AstNode", ({ enumerable: true, get: function () { return FormularParser_1.AstNode; } }));
 const FormularTokeniser_1 = __webpack_require__(/*! ./tokeniser/FormularTokeniser */ "./tokeniser/FormularTokeniser.ts");
 Object.defineProperty(exports, "FormularTokeniser", ({ enumerable: true, get: function () { return FormularTokeniser_1.FormularTokeniser; } }));
-const index_1 = __importDefault(__webpack_require__(/*! ./index */ "./index.ts"));
+const index_1 = __importStar(__webpack_require__(/*! ./index */ "./index.ts"));
+Object.defineProperty(exports, "isValidExpression", ({ enumerable: true, get: function () { return index_1.isValidExpression; } }));
+const constant_1 = __webpack_require__(/*! ./constant */ "./constant.ts");
+Object.defineProperty(exports, "ConditionResult", ({ enumerable: true, get: function () { return constant_1.ConditionResult; } }));
 exports["default"] = index_1.default;
 
 
@@ -774,6 +834,23 @@ class FormularParser {
         }
         else {
             throw new Error("is not formular");
+        }
+    }
+    /**
+     * Verify the validity of the formular
+     * @param tokens - An array of tokens to parse.
+     * @returns {boolean} true if the tokens are a valid formula, false otherwise
+     */
+    isValidFormular(tokens) {
+        try {
+            if (this.isFormular(tokens)) {
+                this.checkSynthax(tokens);
+                return true;
+            }
+            return false;
+        }
+        catch (error) {
+            return false;
         }
     }
     /**
