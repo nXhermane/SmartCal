@@ -187,14 +187,23 @@ export class ExpressionConstructor {
             */
         static and<T, R>(left: Expression<T, R>, right: Expression<T, R>): Expression<T, number>;
         /**
-        * Creates a power (exponentiation) expression between two expressions.
-        *
-        * @template T The input type of the expressions.
-        * @param {Expression<T, number>} base The base operand.
-        * @param {Expression<T, number>} exponent The exponent operand.
-        * @returns {Expression<T, number>} The result of raising `base` to the power of `right`.
-        */
+            * Creates a power (exponentiation) expression between two expressions.
+            *
+            * @template T The input type of the expressions.
+            * @param {Expression<T, number>} base The base operand.
+            * @param {Expression<T, number>} exponent The exponent operand.
+            * @returns {Expression<T, number>} The result of raising `base` to the power of `right`.
+            */
         static pow<T>(left: Expression<T, number>, right: Expression<T, number>): Expression<T, number>;
+        /**
+            * Creates a modulo operation expression between two expressions.
+            *
+            * @template T The type of the input expressions.
+            * @param {Expression<T, number>} left The left operand.
+            * @param {Expression<T, number>} right The right operand.
+            * @returns {Expression<T, number>} The modulo expression.
+            */
+        static modulo<T>(left: Expression<T, number>, right: Expression<T, number>): Expression<T, number>;
 }
 
 /**

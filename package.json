@@ -13,8 +13,7 @@
   "files": [
     "./dist",
     "./LISENCE",
-    "./README.md",
-    "./docs"
+    "./README.md"
   ],
   "repository": {
     "type": "git",

@@ -20,10 +20,10 @@ return /******/ (() => { // webpackBootstrap
 
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.Priority_4_Operator = exports.Priority_3_Operator = exports.Priority_2_Operator = exports.Priority_1_Operator = exports.AllOperators = exports.Operators = exports.ArithmeticOperator = exports.ComparisonOperator = exports.BackslashOperator = exports.QuestionMarkOperator = exports.ColonOperator = exports.ParenthesisCloseOperator = exports.ParenthesisOpenOperator = exports.AssignmentOperator = exports.NotEqualOperator = exports.EqualOperator = exports.LessThanOrEqualOperator = exports.GreaterThanOrEqualOperator = exports.LessThanOperator = exports.GreaterThanOperator = exports.LogicalOrOperator = exports.LogicalAndOperator = exports.ExponentialOperator = exports.MultiplicationOperator = exports.DivisionOperator = exports.SubtractionOperator = exports.AdditionOperator = exports.REGEX = void 0;
+exports.Priority_4_Operator = exports.Priority_3_Operator = exports.Priority_2_Operator = exports.Priority_1_Operator = exports.AllOperators = exports.Operators = exports.ArithmeticOperator = exports.ComparisonOperator = exports.BackslashOperator = exports.QuestionMarkOperator = exports.ColonOperator = exports.ParenthesisCloseOperator = exports.ParenthesisOpenOperator = exports.AssignmentOperator = exports.NotEqualOperator = exports.EqualOperator = exports.LessThanOrEqualOperator = exports.GreaterThanOrEqualOperator = exports.LessThanOperator = exports.GreaterThanOperator = exports.LogicalOrOperator = exports.LogicalAndOperator = exports.ModuloOperator = exports.ExponentialOperator = exports.MultiplicationOperator = exports.DivisionOperator = exports.SubtractionOperator = exports.AdditionOperator = exports.REGEX = void 0;
 exports.REGEX = {
-    formularOperatorG: /(<=|\^|>=|==|\|\||&&|!=|[+/\-*=()<>?:])/g,
-    formularOperator: /(<=|>=|\^|==|\|\||&&|!=|[+/\-*=()<>?!:])/,
+    formularOperatorG: /(<=|\^|%|>=|==|\|\||&&|!=|[+/\-*=()<>?:])/g,
+    formularOperator: /(<=|>=|\^|%|==|\|\||&&|!=|[+/\-*=()<>?!:])/,
     formularFieldName: /f_[\w]/, // that is regex that identify the formular fieldName
 };
 // Arithmetics operators
@@ -32,6 +32,7 @@ exports.SubtractionOperator = "-";
 exports.DivisionOperator = "/";
 exports.MultiplicationOperator = "*";
 exports.ExponentialOperator = "^";
+exports.ModuloOperator = "%";
 // Logics operators
 exports.LogicalAndOperator = "&&";
 exports.LogicalOrOperator = "||";
@@ -65,6 +66,7 @@ exports.ArithmeticOperator = [
     exports.DivisionOperator,
     exports.MultiplicationOperator,
     exports.ExponentialOperator,
+    exports.ModuloOperator
 ];
 exports.Operators = [
     ...exports.ArithmeticOperator,
@@ -78,7 +80,7 @@ exports.AllOperators = [
     exports.ParenthesisOpenOperator,
 ];
 exports.Priority_1_Operator = [exports.AdditionOperator, exports.SubtractionOperator];
-exports.Priority_2_Operator = [exports.DivisionOperator, exports.MultiplicationOperator];
+exports.Priority_2_Operator = [exports.DivisionOperator, exports.MultiplicationOperator, exports.ModuloOperator];
 exports.Priority_3_Operator = [exports.ExponentialOperator];
 exports.Priority_4_Operator = [
     ...exports.ComparisonOperator,
@@ -362,15 +364,26 @@ class ExpressionConstructor {
         return new BinaryOperation_1.BinaryOperation(left, right, (a, b) => Number(a && b));
     }
     /**
-   * Creates a power (exponentiation) expression between two expressions.
-   *
-   * @template T The input type of the expressions.
-   * @param {Expression<T, number>} base The base operand.
-   * @param {Expression<T, number>} exponent The exponent operand.
-   * @returns {Expression<T, number>} The result of raising `base` to the power of `right`.
-   */
+     * Creates a power (exponentiation) expression between two expressions.
+     *
+     * @template T The input type of the expressions.
+     * @param {Expression<T, number>} base The base operand.
+     * @param {Expression<T, number>} exponent The exponent operand.
+     * @returns {Expression<T, number>} The result of raising `base` to the power of `right`.
+     */
     static pow(left, right) {
         return new BinaryOperation_1.BinaryOperation(left, right, (a, b) => Math.pow(Number(a), Number(b)));
+    }
+    /**
+     * Creates a modulo operation expression between two expressions.
+     *
+     * @template T The type of the input expressions.
+     * @param {Expression<T, number>} left The left operand.
+     * @param {Expression<T, number>} right The right operand.
+     * @returns {Expression<T, number>} The modulo expression.
+     */
+    static modulo(left, right) {
+        return new BinaryOperation_1.BinaryOperation(left, right, (a, b) => a % b);
     }
 }
 exports.ExpressionConstructor = ExpressionConstructor;
@@ -555,6 +568,8 @@ class FormularInterpreter {
                     return ExpressionConstructor_1.ExpressionConstructor.multiplication(left, right);
                 case constant_1.DivisionOperator:
                     return ExpressionConstructor_1.ExpressionConstructor.division(left, right);
+                case constant_1.ModuloOperator:
+                    return ExpressionConstructor_1.ExpressionConstructor.modulo(left, right);
                 case constant_1.ExponentialOperator:
                     return ExpressionConstructor_1.ExpressionConstructor.pow(left, right);
                 default:
@@ -796,7 +811,7 @@ class FormularParser {
         if (regex.test(expression)) {
             throw new Error("Incorrect Operator error");
         }
-        const validOperationCheckerRegex = />=|<=|==|!=|&&|\|\||[+-\/*<>\^][\w\(]/;
+        const validOperationCheckerRegex = />=|<=|==|!=|&&|\|\||[+-\/*<>%\^][\w\(]/;
         if (!validOperationCheckerRegex.test(expression)) {
             throw new Error("Incorrect Operator position for Operand");
         }
@@ -851,7 +866,6 @@ class FormularParser {
      */
     parser(tokens) {
         const postFixExpression = this.infixToPostFix(tokens);
-        console.log("PostFix", postFixExpression);
         const result = this.generateAST(postFixExpression);
         return result;
     }
@@ -948,7 +962,6 @@ class FormularParser {
                     operators.push(operatorAndParenthesis);
                 }
                 else {
-                    console.log("enter here", operatorAndParenthesis, token);
                 }
             }
         });
@@ -983,7 +996,7 @@ class FormularParser {
      * Checks if the provided token is an operator or parenthesis.
      *
      * This method considers the following tokens as valid operators:
-     * Arithmetic operators: +, -, *, /
+     * Arithmetic operators: +, -, *, /,^,%
      * Comparison operators: >, <, >=, <=, ==, !=
      * Logical operators: ||, &&
      * Ternary operator: ?
@@ -1000,7 +1013,7 @@ class FormularParser {
     /**
      * Checks if the provided token is an arithmetic operator.
      *
-     * The valid arithmetic operators are: +, -, *, /,^
+     * The valid arithmetic operators are: +, -, *, /,^,%
      *
      * @param token - The token to evaluate.
      * @returns {boolean} -True if the token is an arithmetic operator; otherwise, false.
@@ -1090,7 +1103,6 @@ class FormularTokenizer {
         const filteredTokens = [];
         let expectedClosedParenthesis = false;
         tokens.forEach((token) => {
-            console.log(token);
             const regex = /^\d+(\.\d+)?$/;
             const negativeNumberRegex = /-\d+/;
             const lastFilteredToken = filteredTokens[filteredTokens.length - 1];
