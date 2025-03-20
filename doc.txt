@@ -1,0 +1,11 @@
+
+
+nutrition rules interpretor languages 
+
+
+f_MMMM: f + underscore represente une formule et c'est la valeur devant le le underscore  qui est le non de la formule . une frmule peut etre deefinir lorsqu'on a un ``=`` devant l'identifiant de la formule sinon c'est a l'interpreteur d'aller chercher la formule afin d'executer pour obtenir la valeur 
+v_MMMM: c'est une variable a aller chercher 
+nutrient_TAGNAME : veut dire que cette expresion est un nutriment 
+{20}% of (variable , formule , nutriment ) : veut dire que c'est 20 % de cette valeur 
+increase .. nutrient_TAGNAME .. by 20%: 
+decrease .. nutrient_TAGNAME .. by 20% : 
