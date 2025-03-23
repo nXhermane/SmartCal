@@ -1,9 +1,12 @@
 export const REGEX = {
-  formularOperatorG: /(<=|\^|%|>=|==|\|\||&&|!=|[+/\-*=()<>?:])/g,
-  formularOperator: /(<=|>=|\^|%|==|\|\||&&|!=|[+/\-*=()<>?!:])/,
-  formularFieldName: /f_[\w]/, // that is regex that identify the formular fieldName
+  formulaOperatorG: /(<=|\^|%|>=|==|\|\||&&|!=|[+/\-*=()<>?:])/g,
+  formulaOperator: /(<=|>=|\^|%|==|\|\||&&|!=|[+/\-*=()<>?!:])/,
+  formulaFieldName: /f_[\w]/, // that is regex that identify the formula fieldName
 };
-
+export const ConditionResult = {
+  True: 1,
+  False: 0,
+};
 // Arithmetics operators
 export const AdditionOperator = "+";
 export const SubtractionOperator = "-";
@@ -45,7 +48,7 @@ export const ArithmeticOperator = [
   DivisionOperator,
   MultiplicationOperator,
   ExponentialOperator,
-  ModuloOperator
+  ModuloOperator,
 ];
 
 export const Operators = [
@@ -60,7 +63,11 @@ export const AllOperators = [
   ParenthesisOpenOperator,
 ];
 export const Priority_1_Operator = [AdditionOperator, SubtractionOperator];
-export const Priority_2_Operator = [DivisionOperator, MultiplicationOperator,ModuloOperator];
+export const Priority_2_Operator = [
+  DivisionOperator,
+  MultiplicationOperator,
+  ModuloOperator,
+];
 export const Priority_3_Operator = [ExponentialOperator];
 export const Priority_4_Operator = [
   ...ComparisonOperator,

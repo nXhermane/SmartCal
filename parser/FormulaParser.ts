@@ -14,23 +14,23 @@ import {
   REGEX,
 } from "../constant";
 
-const OperatorValue = [...ArithmeticOperator,...ComparisonOperator]
+const OperatorValue = [...ArithmeticOperator, ...ComparisonOperator]
 /**
  * Represents the supported operators in the expression.
  */
 type Operator = typeof OperatorValue[number]
-  // | "+"
-  // | "-"
-  // | "/"
-  // | "*"
-  // | ">"
-  // | "||"
-  // | "<"
-  // | "&&"
-  // | ">="
-  // | "<="
-  // | "=="
-  // | "!=";
+// | "+"
+// | "-"
+// | "/"
+// | "*"
+// | ">"
+// | "||"
+// | "<"
+// | "&&"
+// | ">="
+// | "<="
+// | "=="
+// | "!=";
 
 /**
  * Defines the structure of a Node in the Abstract Syntax Tree (AST).
@@ -147,16 +147,16 @@ export class AstNode implements Node {
 /**
  * Parses formulas and generates an Abstract Syntax Tree (AST).
  */
-export class FormularParser {
+export class FormulaParser {
   /**
    * Checks if the provided tokens represent a valid formula.
    * @param tokens - An array of tokens representing the formula.
    * @returns {boolean} True if the tokens form a valid formula; otherwise, false.
    */
-  private isFormular(tokens: (string | number)[]) {
+  private isFormula(tokens: (string | number)[]) {
     let notOperatorLastIndex = 1;
     let operatorLastIndex = 1;
-    const operatorRegex = REGEX.formularOperator;
+    const operatorRegex = REGEX.formulaOperator;
     for (let index = 0; index < tokens.length; index++) {
       const token = tokens[index];
       const isOperator = operatorRegex.test(String(token));
@@ -252,6 +252,20 @@ export class FormularParser {
       }
     });
   }
+  /**
+   * Check if the provided tokens is valid formula 
+   * @param tokens - An array of tokens to verify if is valid formula
+   * @returns {boolean} return true when is valid formula and false if not
+   */
+  isValidFormula(tokens: (string | number)[]): boolean {
+    try {
+      if (!this.isFormula(tokens)) return false;
+      this.checkSyntax(tokens)
+      return true
+    } catch {
+      return false
+    }
+  }
 
   /**
    * Executes the parsing of the provided tokens and generates an AST.
@@ -260,11 +274,11 @@ export class FormularParser {
    * @throws {Error} Throws an error if the tokens are not a valid formula.
    */
   execute(tokens: (string | number)[]): Node {
-    if (this.isFormular(tokens)) {
+    if (this.isFormula(tokens)) {
       this.checkSyntax(tokens);
       return this.parser(tokens);
     } else {
-      throw new Error("[Error]: Not formular");
+      throw new Error("[Error]: Not formula");
     }
   }
 
@@ -375,7 +389,7 @@ export class FormularParser {
           }
           operators.push(operatorAndParenthesis);
         } else {
-    
+
         }
       }
     });

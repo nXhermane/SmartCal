@@ -6,11 +6,11 @@ import {
 } from "../constant";
 
 /**
- * The FormularTokenizer class is responsible for tokenizing and formatting
+ * The FormulaTokenizer class is responsible for tokenizing and formatting
  * mathematical expressions for further evaluation. It handles the input
  * string by formatting it, filtering tokens, and preparing them for processing.
  */
-export class FormularTokenizer {
+export class FormulaTokenizer {
   /**
    * Formats the input string by replacing operators and trimming whitespace.
    * @param {string} input The input string to be formatted.
@@ -18,7 +18,7 @@ export class FormularTokenizer {
    */
   formatInput(input: string): string {
     return input
-      .replace(REGEX.formularOperatorG, " $1 ")
+      .replace(REGEX.formulaOperatorG, " $1 ")
       .replace(/\s+/g, " ")
       .trim();
   }

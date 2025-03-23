@@ -20,11 +20,15 @@ return /******/ (() => { // webpackBootstrap
 
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.Priority_4_Operator = exports.Priority_3_Operator = exports.Priority_2_Operator = exports.Priority_1_Operator = exports.AllOperators = exports.Operators = exports.ArithmeticOperator = exports.ComparisonOperator = exports.BackslashOperator = exports.QuestionMarkOperator = exports.ColonOperator = exports.ParenthesisCloseOperator = exports.ParenthesisOpenOperator = exports.AssignmentOperator = exports.NotEqualOperator = exports.EqualOperator = exports.LessThanOrEqualOperator = exports.GreaterThanOrEqualOperator = exports.LessThanOperator = exports.GreaterThanOperator = exports.LogicalOrOperator = exports.LogicalAndOperator = exports.ModuloOperator = exports.ExponentialOperator = exports.MultiplicationOperator = exports.DivisionOperator = exports.SubtractionOperator = exports.AdditionOperator = exports.REGEX = void 0;
+exports.Priority_4_Operator = exports.Priority_3_Operator = exports.Priority_2_Operator = exports.Priority_1_Operator = exports.AllOperators = exports.Operators = exports.ArithmeticOperator = exports.ComparisonOperator = exports.BackslashOperator = exports.QuestionMarkOperator = exports.ColonOperator = exports.ParenthesisCloseOperator = exports.ParenthesisOpenOperator = exports.AssignmentOperator = exports.NotEqualOperator = exports.EqualOperator = exports.LessThanOrEqualOperator = exports.GreaterThanOrEqualOperator = exports.LessThanOperator = exports.GreaterThanOperator = exports.LogicalOrOperator = exports.LogicalAndOperator = exports.ModuloOperator = exports.ExponentialOperator = exports.MultiplicationOperator = exports.DivisionOperator = exports.SubtractionOperator = exports.AdditionOperator = exports.ConditionResult = exports.REGEX = void 0;
 exports.REGEX = {
-    formularOperatorG: /(<=|\^|%|>=|==|\|\||&&|!=|[+/\-*=()<>?:])/g,
-    formularOperator: /(<=|>=|\^|%|==|\|\||&&|!=|[+/\-*=()<>?!:])/,
-    formularFieldName: /f_[\w]/, // that is regex that identify the formular fieldName
+    formulaOperatorG: /(<=|\^|%|>=|==|\|\||&&|!=|[+/\-*=()<>?:])/g,
+    formulaOperator: /(<=|>=|\^|%|==|\|\||&&|!=|[+/\-*=()<>?!:])/,
+    formulaFieldName: /f_[\w]/, // that is regex that identify the formula fieldName
+};
+exports.ConditionResult = {
+    True: 1,
+    False: 0,
 };
 // Arithmetics operators
 exports.AdditionOperator = "+";
@@ -66,7 +70,7 @@ exports.ArithmeticOperator = [
     exports.DivisionOperator,
     exports.MultiplicationOperator,
     exports.ExponentialOperator,
-    exports.ModuloOperator
+    exports.ModuloOperator,
 ];
 exports.Operators = [
     ...exports.ArithmeticOperator,
@@ -80,7 +84,11 @@ exports.AllOperators = [
     exports.ParenthesisOpenOperator,
 ];
 exports.Priority_1_Operator = [exports.AdditionOperator, exports.SubtractionOperator];
-exports.Priority_2_Operator = [exports.DivisionOperator, exports.MultiplicationOperator, exports.ModuloOperator];
+exports.Priority_2_Operator = [
+    exports.DivisionOperator,
+    exports.MultiplicationOperator,
+    exports.ModuloOperator,
+];
 exports.Priority_3_Operator = [exports.ExponentialOperator];
 exports.Priority_4_Operator = [
     ...exports.ComparisonOperator,
@@ -402,9 +410,9 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.FieldReference = void 0;
 const Expression_1 = __webpack_require__(/*! ./Expression */ "./expression/Expression.ts");
 const constant_1 = __webpack_require__(/*! ./../constant */ "./constant.ts");
-const FormularParser_1 = __webpack_require__(/*! ../parser/FormularParser */ "./parser/FormularParser.ts");
-const FormularTokenizer_1 = __webpack_require__(/*! ../tokenizer/FormularTokenizer */ "./tokenizer/FormularTokenizer.ts");
-const FormularInterpreter_1 = __webpack_require__(/*! ../interpreter/FormularInterpreter */ "./interpreter/FormularInterpreter.ts");
+const FormulaParser_1 = __webpack_require__(/*! ../parser/FormulaParser */ "./parser/FormulaParser.ts");
+const FormulaTokenizer_1 = __webpack_require__(/*! ../tokenizer/FormulaTokenizer */ "./tokenizer/FormulaTokenizer.ts");
+const FormulaInterpreter_1 = __webpack_require__(/*! ../interpreter/FormulaInterpreter */ "./interpreter/FormulaInterpreter.ts");
 /**
  * Represents a reference to a field in a given object, allowing
  * for the execution of expressions and the interpretation of formulas.
@@ -428,8 +436,8 @@ class FieldReference extends Expression_1.Expression {
     execute(obj) {
         if (obj != null && obj != undefined) {
             if (obj[this.fieldName] != undefined) {
-                if (this.isFormularRef())
-                    return this.executeFormularRef(obj);
+                if (this.isFormulaRef())
+                    return this.executeFormulaRef(obj);
                 return obj[this.fieldName];
             }
         }
@@ -440,8 +448,8 @@ class FieldReference extends Expression_1.Expression {
      *
      * @returns {boolean} True if the field is a formula reference, otherwise false.
      */
-    isFormularRef() {
-        return constant_1.REGEX.formularFieldName.test(this.fieldName);
+    isFormulaRef() {
+        return constant_1.REGEX.formulaFieldName.test(this.fieldName);
     }
     /**
      * Executes the formula reference and returns the result of the interpretation.
@@ -449,10 +457,10 @@ class FieldReference extends Expression_1.Expression {
      * @param {T} obj - The object from which to extract the formula.
      * @returns {R} The result of executing the formula.
      */
-    executeFormularRef(obj) {
-        const fTokenizer = new FormularTokenizer_1.FormularTokenizer();
-        const fParser = new FormularParser_1.FormularParser();
-        const fInterpreter = new FormularInterpreter_1.FormularInterpreter();
+    executeFormulaRef(obj) {
+        const fTokenizer = new FormulaTokenizer_1.FormulaTokenizer();
+        const fParser = new FormulaParser_1.FormulaParser();
+        const fInterpreter = new FormulaInterpreter_1.FormulaInterpreter();
         const astTree = fParser.execute(fTokenizer.execute(obj[this.fieldName]));
         return fInterpreter.execute(astTree, obj);
     }
@@ -503,41 +511,89 @@ exports.LiteralValue = LiteralValue;
 /*!******************!*\
   !*** ./index.ts ***!
   \******************/
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || (function () {
+    var ownKeys = function(o) {
+        ownKeys = Object.getOwnPropertyNames || function (o) {
+            var ar = [];
+            for (var k in o) if (Object.prototype.hasOwnProperty.call(o, k)) ar[ar.length] = k;
+            return ar;
+        };
+        return ownKeys(o);
+    };
+    return function (mod) {
+        if (mod && mod.__esModule) return mod;
+        var result = {};
+        if (mod != null) for (var k = ownKeys(mod), i = 0; i < k.length; i++) if (k[i] !== "default") __createBinding(result, mod, k[i]);
+        __setModuleDefault(result, mod);
+        return result;
+    };
+})();
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports["default"] = SmartCal;
-const FormularParser_1 = __webpack_require__(/*! ./parser/FormularParser */ "./parser/FormularParser.ts");
-const FormularTokenizer_1 = __webpack_require__(/*! ./tokenizer/FormularTokenizer */ "./tokenizer/FormularTokenizer.ts");
-const FormularInterpreter_1 = __webpack_require__(/*! ./interpreter/FormularInterpreter */ "./interpreter/FormularInterpreter.ts");
-function SmartCal(expression, obj) {
-    const fTokenizer = new FormularTokenizer_1.FormularTokenizer();
-    const fParser = new FormularParser_1.FormularParser();
-    const fInterpreter = new FormularInterpreter_1.FormularInterpreter();
-    return fInterpreter.execute(fParser.execute(fTokenizer.execute(expression)), obj);
-}
+exports.ConditionResult = exports.isValidExpression = exports.FormulaTokenizer = exports.AstNode = exports.FormulaParser = exports.FormulaInterpreter = exports.LiteralValue = exports.FieldReference = exports.ExpressionConstructor = exports.Expression = exports.ConditionalExpression = exports.BinaryOperation = void 0;
+const BinaryOperation_1 = __webpack_require__(/*! ./expression/BinaryOperation */ "./expression/BinaryOperation.ts");
+Object.defineProperty(exports, "BinaryOperation", ({ enumerable: true, get: function () { return BinaryOperation_1.BinaryOperation; } }));
+const ConditionalExpression_1 = __webpack_require__(/*! ./expression/ConditionalExpression */ "./expression/ConditionalExpression.ts");
+Object.defineProperty(exports, "ConditionalExpression", ({ enumerable: true, get: function () { return ConditionalExpression_1.ConditionalExpression; } }));
+const Expression_1 = __webpack_require__(/*! ./expression/Expression */ "./expression/Expression.ts");
+Object.defineProperty(exports, "Expression", ({ enumerable: true, get: function () { return Expression_1.Expression; } }));
+const ExpressionConstructor_1 = __webpack_require__(/*! ./expression/ExpressionConstructor */ "./expression/ExpressionConstructor.ts");
+Object.defineProperty(exports, "ExpressionConstructor", ({ enumerable: true, get: function () { return ExpressionConstructor_1.ExpressionConstructor; } }));
+const FieldReference_1 = __webpack_require__(/*! ./expression/FieldReference */ "./expression/FieldReference.ts");
+Object.defineProperty(exports, "FieldReference", ({ enumerable: true, get: function () { return FieldReference_1.FieldReference; } }));
+const LiteralValue_1 = __webpack_require__(/*! ./expression/LiteralValue */ "./expression/LiteralValue.ts");
+Object.defineProperty(exports, "LiteralValue", ({ enumerable: true, get: function () { return LiteralValue_1.LiteralValue; } }));
+const FormulaInterpreter_1 = __webpack_require__(/*! ./interpreter/FormulaInterpreter */ "./interpreter/FormulaInterpreter.ts");
+Object.defineProperty(exports, "FormulaInterpreter", ({ enumerable: true, get: function () { return FormulaInterpreter_1.FormulaInterpreter; } }));
+const FormulaParser_1 = __webpack_require__(/*! ./parser/FormulaParser */ "./parser/FormulaParser.ts");
+Object.defineProperty(exports, "FormulaParser", ({ enumerable: true, get: function () { return FormulaParser_1.FormulaParser; } }));
+Object.defineProperty(exports, "AstNode", ({ enumerable: true, get: function () { return FormulaParser_1.AstNode; } }));
+const FormulaTokenizer_1 = __webpack_require__(/*! ./tokenizer/FormulaTokenizer */ "./tokenizer/FormulaTokenizer.ts");
+Object.defineProperty(exports, "FormulaTokenizer", ({ enumerable: true, get: function () { return FormulaTokenizer_1.FormulaTokenizer; } }));
+const main_1 = __importStar(__webpack_require__(/*! ./main */ "./main.ts"));
+Object.defineProperty(exports, "isValidExpression", ({ enumerable: true, get: function () { return main_1.isValidExpression; } }));
+const constant_1 = __webpack_require__(/*! ./constant */ "./constant.ts");
+Object.defineProperty(exports, "ConditionResult", ({ enumerable: true, get: function () { return constant_1.ConditionResult; } }));
+exports["default"] = main_1.default;
 
 
 /***/ }),
 
-/***/ "./interpreter/FormularInterpreter.ts":
-/*!********************************************!*\
-  !*** ./interpreter/FormularInterpreter.ts ***!
-  \********************************************/
+/***/ "./interpreter/FormulaInterpreter.ts":
+/*!*******************************************!*\
+  !*** ./interpreter/FormulaInterpreter.ts ***!
+  \*******************************************/
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.FormularInterpreter = void 0;
+exports.FormulaInterpreter = void 0;
 const ExpressionConstructor_1 = __webpack_require__(/*! ./../expression/ExpressionConstructor */ "./expression/ExpressionConstructor.ts");
 const constant_1 = __webpack_require__(/*! ../constant */ "./constant.ts");
 /**
- * The FormularInterpreter class is responsible for interpreting an abstract syntax tree (AST)
+ * The FormulaInterpreter class is responsible for interpreting an abstract syntax tree (AST)
  * representing a mathematical or logical expression. It evaluates expressions based on provided
  * variable data and constructs appropriate expression objects for processing.
  */
-class FormularInterpreter {
+class FormulaInterpreter {
     /**
      * Executes the interpretation of the AST tree and returns the evaluated result.
      * @param {Node} astTree The abstract syntax tree to be interpreted.
@@ -634,7 +690,7 @@ class FormularInterpreter {
         }
     }
 }
-exports.FormularInterpreter = FormularInterpreter;
+exports.FormulaInterpreter = FormulaInterpreter;
 
 
 /***/ }),
@@ -643,48 +699,62 @@ exports.FormularInterpreter = FormularInterpreter;
 /*!*****************!*\
   !*** ./main.ts ***!
   \*****************/
-/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
-
-
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.FormularTokenizer = exports.AstNode = exports.FormularParser = exports.FormularInterpreter = exports.LiteralValue = exports.FieldReference = exports.ExpressionConstructor = exports.Expression = exports.ConditionalExpression = exports.BinaryOperation = void 0;
-const BinaryOperation_1 = __webpack_require__(/*! ./expression/BinaryOperation */ "./expression/BinaryOperation.ts");
-Object.defineProperty(exports, "BinaryOperation", ({ enumerable: true, get: function () { return BinaryOperation_1.BinaryOperation; } }));
-const ConditionalExpression_1 = __webpack_require__(/*! ./expression/ConditionalExpression */ "./expression/ConditionalExpression.ts");
-Object.defineProperty(exports, "ConditionalExpression", ({ enumerable: true, get: function () { return ConditionalExpression_1.ConditionalExpression; } }));
-const Expression_1 = __webpack_require__(/*! ./expression/Expression */ "./expression/Expression.ts");
-Object.defineProperty(exports, "Expression", ({ enumerable: true, get: function () { return Expression_1.Expression; } }));
-const ExpressionConstructor_1 = __webpack_require__(/*! ./expression/ExpressionConstructor */ "./expression/ExpressionConstructor.ts");
-Object.defineProperty(exports, "ExpressionConstructor", ({ enumerable: true, get: function () { return ExpressionConstructor_1.ExpressionConstructor; } }));
-const FieldReference_1 = __webpack_require__(/*! ./expression/FieldReference */ "./expression/FieldReference.ts");
-Object.defineProperty(exports, "FieldReference", ({ enumerable: true, get: function () { return FieldReference_1.FieldReference; } }));
-const LiteralValue_1 = __webpack_require__(/*! ./expression/LiteralValue */ "./expression/LiteralValue.ts");
-Object.defineProperty(exports, "LiteralValue", ({ enumerable: true, get: function () { return LiteralValue_1.LiteralValue; } }));
-const FormularInterpreter_1 = __webpack_require__(/*! ./interpreter/FormularInterpreter */ "./interpreter/FormularInterpreter.ts");
-Object.defineProperty(exports, "FormularInterpreter", ({ enumerable: true, get: function () { return FormularInterpreter_1.FormularInterpreter; } }));
-const FormularParser_1 = __webpack_require__(/*! ./parser/FormularParser */ "./parser/FormularParser.ts");
-Object.defineProperty(exports, "FormularParser", ({ enumerable: true, get: function () { return FormularParser_1.FormularParser; } }));
-Object.defineProperty(exports, "AstNode", ({ enumerable: true, get: function () { return FormularParser_1.AstNode; } }));
-const FormularTokenizer_1 = __webpack_require__(/*! ./tokenizer/FormularTokenizer */ "./tokenizer/FormularTokenizer.ts");
-Object.defineProperty(exports, "FormularTokenizer", ({ enumerable: true, get: function () { return FormularTokenizer_1.FormularTokenizer; } }));
-const index_1 = __importDefault(__webpack_require__(/*! ./index */ "./index.ts"));
-exports["default"] = index_1.default;
-
-
-/***/ }),
-
-/***/ "./parser/FormularParser.ts":
-/*!**********************************!*\
-  !*** ./parser/FormularParser.ts ***!
-  \**********************************/
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.FormularParser = exports.AstNode = void 0;
+exports["default"] = SmartCal;
+exports.isValidExpression = isValidExpression;
+const FormulaParser_1 = __webpack_require__(/*! ./parser/FormulaParser */ "./parser/FormulaParser.ts");
+const FormulaTokenizer_1 = __webpack_require__(/*! ./tokenizer/FormulaTokenizer */ "./tokenizer/FormulaTokenizer.ts");
+const FormulaInterpreter_1 = __webpack_require__(/*! ./interpreter/FormulaInterpreter */ "./interpreter/FormulaInterpreter.ts");
+/**
+ * Evaluates a mathematical expression and returns the result.
+ *
+ * This function parses and interprets a mathematical formula represented as a string,
+ * applying dynamic values from a given object to resolve variables or conditions within the expression.
+ *
+ * @template T - A generic type representing the structure of the input object. Keys are variable names, and values can be numbers, strings, or arrays.
+ * @param {string} expression - The mathematical expression to be evaluated.
+ *        Variables in the expression should correspond to keys in the `obj` parameter.
+ * @param {T} obj - An object containing the values of the variables referenced in the expression.
+ * @returns {number | string | any[]} - The result of the evaluated expression, which can be a number, a string, or an array depending on the expression's logic.
+ */
+function SmartCal(expression, obj) {
+    const fTokenizer = new FormulaTokenizer_1.FormulaTokenizer();
+    const fParser = new FormulaParser_1.FormulaParser();
+    const fInterpreter = new FormulaInterpreter_1.FormulaInterpreter();
+    return fInterpreter.execute(fParser.execute(fTokenizer.execute(expression)), obj);
+}
+/**
+ * Verify if the given expression is valid formula
+ * @param expression expression to evaluate
+ * @returns {boolean} true if the expression is valid
+ */
+function isValidExpression(expression) {
+    try {
+        const fTokenizer = new FormulaTokenizer_1.FormulaTokenizer();
+        const fParser = new FormulaParser_1.FormulaParser();
+        const tokens = fTokenizer.execute(expression);
+        return fParser.isValidFormula(tokens);
+    }
+    catch (_a) {
+        return false;
+    }
+}
+
+
+/***/ }),
+
+/***/ "./parser/FormulaParser.ts":
+/*!*********************************!*\
+  !*** ./parser/FormulaParser.ts ***!
+  \*********************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.FormulaParser = exports.AstNode = void 0;
 const constant_1 = __webpack_require__(/*! ../constant */ "./constant.ts");
 const OperatorValue = [...constant_1.ArithmeticOperator, ...constant_1.ComparisonOperator];
 /**
@@ -743,16 +813,16 @@ exports.AstNode = AstNode;
 /**
  * Parses formulas and generates an Abstract Syntax Tree (AST).
  */
-class FormularParser {
+class FormulaParser {
     /**
      * Checks if the provided tokens represent a valid formula.
      * @param tokens - An array of tokens representing the formula.
      * @returns {boolean} True if the tokens form a valid formula; otherwise, false.
      */
-    isFormular(tokens) {
+    isFormula(tokens) {
         let notOperatorLastIndex = 1;
         let operatorLastIndex = 1;
-        const operatorRegex = constant_1.REGEX.formularOperator;
+        const operatorRegex = constant_1.REGEX.formulaOperator;
         for (let index = 0; index < tokens.length; index++) {
             const token = tokens[index];
             const isOperator = operatorRegex.test(String(token));
@@ -845,18 +915,34 @@ class FormularParser {
         });
     }
     /**
+     * Check if the provided tokens is valid formula
+     * @param tokens - An array of tokens to verify if is valid formula
+     * @returns {boolean} return true when is valid formula and false if not
+     */
+    isValidFormula(tokens) {
+        try {
+            if (!this.isFormula(tokens))
+                return false;
+            this.checkSyntax(tokens);
+            return true;
+        }
+        catch (_a) {
+            return false;
+        }
+    }
+    /**
      * Executes the parsing of the provided tokens and generates an AST.
      * @param tokens - An array of tokens to parse.
      * @returns {Node} The root node of the generated AST.
      * @throws {Error} Throws an error if the tokens are not a valid formula.
      */
     execute(tokens) {
-        if (this.isFormular(tokens)) {
+        if (this.isFormula(tokens)) {
             this.checkSyntax(tokens);
             return this.parser(tokens);
         }
         else {
-            throw new Error("[Error]: Not formular");
+            throw new Error("[Error]: Not formula");
         }
     }
     /**
@@ -1060,27 +1146,27 @@ class FormularParser {
         return typeof token === "number" || valueRegex.test(token) ? true : false;
     }
 }
-exports.FormularParser = FormularParser;
+exports.FormulaParser = FormulaParser;
 
 
 /***/ }),
 
-/***/ "./tokenizer/FormularTokenizer.ts":
-/*!****************************************!*\
-  !*** ./tokenizer/FormularTokenizer.ts ***!
-  \****************************************/
+/***/ "./tokenizer/FormulaTokenizer.ts":
+/*!***************************************!*\
+  !*** ./tokenizer/FormulaTokenizer.ts ***!
+  \***************************************/
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.FormularTokenizer = void 0;
+exports.FormulaTokenizer = void 0;
 const constant_1 = __webpack_require__(/*! ../constant */ "./constant.ts");
 /**
- * The FormularTokenizer class is responsible for tokenizing and formatting
+ * The FormulaTokenizer class is responsible for tokenizing and formatting
  * mathematical expressions for further evaluation. It handles the input
  * string by formatting it, filtering tokens, and preparing them for processing.
  */
-class FormularTokenizer {
+class FormulaTokenizer {
     /**
      * Formats the input string by replacing operators and trimming whitespace.
      * @param {string} input The input string to be formatted.
@@ -1088,7 +1174,7 @@ class FormularTokenizer {
      */
     formatInput(input) {
         return input
-            .replace(constant_1.REGEX.formularOperatorG, " $1 ")
+            .replace(constant_1.REGEX.formulaOperatorG, " $1 ")
             .replace(/\s+/g, " ")
             .trim();
     }
@@ -1158,7 +1244,7 @@ class FormularTokenizer {
         return filteredTokens;
     }
 }
-exports.FormularTokenizer = FormularTokenizer;
+exports.FormulaTokenizer = FormulaTokenizer;
 
 
 /***/ })
@@ -1194,7 +1280,7 @@ exports.FormularTokenizer = FormularTokenizer;
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
 /******/ 	// This entry module is referenced by other modules so it can't be inlined
-/******/ 	var __webpack_exports__ = __webpack_require__("./main.ts");
+/******/ 	var __webpack_exports__ = __webpack_require__("./index.ts");
 /******/ 	
 /******/ 	return __webpack_exports__;
 /******/ })()

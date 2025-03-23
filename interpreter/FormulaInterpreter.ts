@@ -1,4 +1,4 @@
-import { Node } from "./../parser/FormularParser";
+import { Node } from "../parser/FormulaParser";
 import { Expression } from "./../expression/Expression";
 import { ExpressionConstructor } from "./../expression/ExpressionConstructor";
 import {
@@ -21,11 +21,11 @@ import {
 type VariableContainer = { [key: string]: string | number };
 
 /**
- * The FormularInterpreter class is responsible for interpreting an abstract syntax tree (AST)
+ * The FormulaInterpreter class is responsible for interpreting an abstract syntax tree (AST)
  * representing a mathematical or logical expression. It evaluates expressions based on provided
  * variable data and constructs appropriate expression objects for processing.
  */
-export class FormularInterpreter {
+export class FormulaInterpreter {
   /**
    * Executes the interpretation of the AST tree and returns the evaluated result.
    * @param {Node} astTree The abstract syntax tree to be interpreted.

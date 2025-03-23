@@ -9,7 +9,7 @@ const CopyWebpackPlugin = require("copy-webpack-plugin");
 const isProduction = process.env.NODE_ENV === "production";
 
 const config = {
-  entry: "./main.ts",
+  entry: "./index.ts",
   output: {
     path: path.resolve(__dirname, "dist"),
     filename: "index.js",
@@ -24,7 +24,7 @@ const config = {
     new CleanWebpackPlugin(),
     new DtsBundleWebpack({
       name: "smartcal",
-      main: "dist/main.d.ts",
+      main: "dist/index.d.ts",
       out: "index.d.ts",
       removeSource: true,
       outputAsModuleFolder: true,
