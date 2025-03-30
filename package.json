@@ -22,7 +22,9 @@
   "scripts": {
     "build": "webpack && node clean-empty-dirs.js",
     "build:doc:html": "npx documentation build ./**/*.ts -f html -o docs",
-    "build:doc:md": "npx documentation build ./**/*.ts -f md -o docs/Readme.md"
+    "build:doc:md": "npx documentation build ./**/*.ts -f md -o docs/Readme.md",
+    "test": "jest",
+    "dev": "nodemon exemple.ts"
   },
   "keywords": [
     "smartcal",

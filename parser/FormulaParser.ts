@@ -14,11 +14,11 @@ import {
   REGEX,
 } from "../constant";
 
-const OperatorValue = [...ArithmeticOperator, ...ComparisonOperator]
+const OperatorValue = [...ArithmeticOperator, ...ComparisonOperator];
 /**
  * Represents the supported operators in the expression.
  */
-type Operator = typeof OperatorValue[number]
+type Operator = (typeof OperatorValue)[number];
 // | "+"
 // | "-"
 // | "/"
@@ -219,6 +219,8 @@ export class FormulaParser {
     if (regex.test(expression)) {
       throw new Error("Incorrect Operator error");
     }
+    // When tokens length is equal to one and the token is an string or number without operator , just return because is just an operand
+    if (tokens.length == 1 && /\w/.test(expression)) return;
     const validOperationCheckerRegex = />=|<=|==|!=|&&|\|\||[+-\/*<>%\^][\w\(]/;
     if (!validOperationCheckerRegex.test(expression)) {
       throw new Error("Incorrect Operator position for Operand");
@@ -253,17 +255,17 @@ export class FormulaParser {
     });
   }
   /**
-   * Check if the provided tokens is valid formula 
+   * Check if the provided tokens is valid formula
    * @param tokens - An array of tokens to verify if is valid formula
    * @returns {boolean} return true when is valid formula and false if not
    */
   isValidFormula(tokens: (string | number)[]): boolean {
     try {
       if (!this.isFormula(tokens)) return false;
-      this.checkSyntax(tokens)
-      return true
+      this.checkSyntax(tokens);
+      return true;
     } catch {
-      return false
+      return false;
     }
   }
 
@@ -389,7 +391,6 @@ export class FormulaParser {
           }
           operators.push(operatorAndParenthesis);
         } else {
-
         }
       }
     });

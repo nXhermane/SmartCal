@@ -276,7 +276,7 @@ const OperatorValue: string[];
 /**
     * Represents the supported operators in the expression.
     */
-type Operator = typeof OperatorValue[number];
+type Operator = (typeof OperatorValue)[number];
 /**
     * Defines the structure of a Node in the Abstract Syntax Tree (AST).
     */
@@ -417,7 +417,7 @@ export class FormulaTokenizer {
     */
 export default function SmartCal<T extends {
         [key: string]: number | string;
-}>(expression: string, obj: T): number | string;
+}>(expression: string, obj?: T): number | string;
 /**
     * Verify if the given expression is valid formula
     * @param expression expression to evaluate

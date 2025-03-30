@@ -16,14 +16,14 @@ import { FormulaInterpreter } from "./interpreter/FormulaInterpreter";
  */
 export default function SmartCal<T extends { [key: string]: number | string }>(
   expression: string,
-  obj: T
+  obj?: T
 ): number | string {
   const fTokenizer = new FormulaTokenizer();
   const fParser = new FormulaParser();
   const fInterpreter = new FormulaInterpreter();
   return fInterpreter.execute<T>(
     fParser.execute(fTokenizer.execute(expression)),
-    obj
+    obj || ({} as T)
   );
 }
 
