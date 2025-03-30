@@ -1,6 +1,6 @@
 {
   "name": "smartcal",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "SmartCal is a lightweight and powerful library for evaluating complex mathematical expressions dynamically. It supports tokenization, parsing, and interpreting mathematical formulas seamlessly, offering flexibility to integrate custom data objects for dynamic calculations. Ideal for developers needing a robust calculation engine in JavaScript/TypeScript projects.",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
