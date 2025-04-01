@@ -16,7 +16,7 @@ export class FormulaTokenizer {
    * @param {string} input The input string to be formatted.
    * @returns {string} The formatted expression.
    */
-  formatInput(input: string): string {
+  private formatInput(input: string): string {
     return input
       .replace(REGEX.formulaOperatorG, " $1 ")
       .replace(/\s+/g, " ")
@@ -30,7 +30,7 @@ export class FormulaTokenizer {
    * @param {string[]} tokens The array of tokens to be filtered.
    * @returns {(string | number)[]} The filtered tokens as an array of strings and numbers.
    */
-  filterTokens(tokens: string[]): (string | number)[] {
+  private filterTokens(tokens: string[]): (string | number)[] {
     const filteredTokens: (string | number)[] = [];
     let expectedClosedParenthesis = false;
     tokens.forEach((token: string) => {
@@ -56,7 +56,7 @@ export class FormulaTokenizer {
           }
         } else {
           if (secondPop == undefined) {
-            if (firstPop !=undefined) {
+            if (firstPop != undefined) {
               filteredTokens.push(firstPop as string, Number(token));
             } else {
               filteredTokens.push(Number(token));
@@ -87,6 +87,7 @@ export class FormulaTokenizer {
    */
   execute(input: string): any[] {
     const formattedInput = this.formatInput(input);
+    if (formattedInput.trim() === "") return [];
     const tokens = formattedInput.split(" ");
     const filteredTokens = this.filterTokens(tokens);
     return filteredTokens;

@@ -276,7 +276,7 @@ export class FormulaParser {
    * @throws {Error} Throws an error if the tokens are not a valid formula.
    */
   execute(tokens: (string | number)[]): Node {
-    if (this.isFormula(tokens)) {
+    if (tokens.length !=0 && this.isFormula(tokens)) {
       this.checkSyntax(tokens);
       return this.parser(tokens);
     } else {

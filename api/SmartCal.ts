@@ -1,6 +1,7 @@
-import { FormulaParser } from "./parser/FormulaParser";
-import { FormulaTokenizer } from "./tokenizer/FormulaTokenizer";
-import { FormulaInterpreter } from "./interpreter/FormulaInterpreter";
+import { FormulaInterpreter } from "../interpreter/FormulaInterpreter";
+import { FormulaParser } from "../parser/FormulaParser";
+import { FormulaTokenizer } from "../tokenizer/FormulaTokenizer";
+import { DataType } from "./type";
 
 /**
  * Evaluates a mathematical expression and returns the result.
@@ -14,7 +15,7 @@ import { FormulaInterpreter } from "./interpreter/FormulaInterpreter";
  * @param {T} obj - An object containing the values of the variables referenced in the expression.
  * @returns {number | string | any[]} - The result of the evaluated expression, which can be a number, a string, or an array depending on the expression's logic.
  */
-export default function SmartCal<T extends { [key: string]: number | string }>(
+export default function SmartCal<T extends DataType>(
   expression: string,
   obj?: T
 ): number | string {
@@ -25,20 +26,4 @@ export default function SmartCal<T extends { [key: string]: number | string }>(
     fParser.execute(fTokenizer.execute(expression)),
     obj || ({} as T)
   );
-}
-
-/**
- * Verify if the given expression is valid formula
- * @param expression expression to evaluate
- * @returns {boolean} true if the expression is valid
- */
-export function isValidExpression(expression: string) {
-  try {
-    const fTokenizer = new FormulaTokenizer();
-    const fParser = new FormulaParser();
-    const tokens = fTokenizer.execute(expression);
-    return fParser.isValidFormula(tokens);
-  } catch {
-    return false;
-  }
 }

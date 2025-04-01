@@ -35,3 +35,4 @@ console.log(SmartCal("10",{yello:2}))
 // Failure : "4 ^ 2 ^ 6"
 
 console.log(ExpressionBuilder.create().add(2,2).str())
+console.log(fTokenizer.execute('1+2'))

@@ -7,7 +7,7 @@ import { LiteralValue } from "./expression/LiteralValue";
 import { FormulaInterpreter } from "./interpreter/FormulaInterpreter";
 import { FormulaParser, AstNode } from "./parser/FormulaParser";
 import { FormulaTokenizer } from "./tokenizer/FormulaTokenizer";
-import SmartCal, { isValidExpression } from "./main";
+
 import { ConditionResult } from "./constant";
 
 export {
@@ -21,7 +21,6 @@ export {
   FormulaParser,
   AstNode,
   FormulaTokenizer,
-  isValidExpression,
   ConditionResult,
 };
-export default SmartCal;
+export * from "./api";
