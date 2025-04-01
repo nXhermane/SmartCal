@@ -1,4 +1,4 @@
-import { Node } from "../parser/FormulaParser";
+import { INode } from "../parser/AstNode";
 import { Expression } from "./../expression/Expression";
 import { ExpressionConstructor } from "./../expression/ExpressionConstructor";
 import {
@@ -17,8 +17,10 @@ import {
   NotEqualOperator,
   SubtractionOperator,
 } from "../constant";
+import { DataType } from "../types";
+import { FormulaInterpreterError } from "../errors/FormulaInterpreterError";
 
-type VariableContainer = { [key: string]: string | number };
+type VariableContainer = DataType;
 
 /**
  * The FormulaInterpreter class is responsible for interpreting an abstract syntax tree (AST)
@@ -28,12 +30,12 @@ type VariableContainer = { [key: string]: string | number };
 export class FormulaInterpreter {
   /**
    * Executes the interpretation of the AST tree and returns the evaluated result.
-   * @param {Node} astTree The abstract syntax tree to be interpreted.
+   * @param {INode} astTree The abstract syntax tree to be interpreted.
    * @param {T} data The variable data to use for evaluation.
    * @returns {number | string} The result of the expression evaluation.
    */
   execute<T extends VariableContainer>(
-    astTree: Node,
+    astTree: INode,
     data: T
   ): number | string {
     const result = this.interpret<T>(astTree, data).execute(data);
@@ -42,14 +44,16 @@ export class FormulaInterpreter {
 
   /**
    * Interprets the AST tree recursively and constructs expression objects based on the node types.
-   * @param {Node} astTree The abstract syntax tree to interpret.
+   * @param {INode} astTree The abstract syntax tree to interpret.
    * @param {T} data The variable data to use for evaluation.
    * @returns {Expression<T, string | number>} The constructed expression object.
    */
   interpret<T extends VariableContainer>(
-    astTree: Node,
+    astTree: INode,
     data: T
   ): Expression<T, string | number> {
+    try{
+    
     if (astTree.isNode()) {
       const operator = astTree.operator;
       const right = this.interpret<T>(astTree.right!, data);
@@ -93,7 +97,7 @@ export class FormulaInterpreter {
       if (typeof value === "number") {
         return ExpressionConstructor.literalValue<T>(Number(astTree.value));
       } else {
-        const regex = /"([\w]+)"/;
+        const regex = /["']([\w]+)["']/;
         const stringValue = value.match(regex)![1];
         return ExpressionConstructor.literalValue<T, string>(
           stringValue as string
@@ -102,7 +106,7 @@ export class FormulaInterpreter {
     } else if (astTree.isField()) {
       const fieldValue = data[String(astTree.fieldName!)];
       if (fieldValue === undefined)
-        throw new Error(`The variable ${astTree.fieldName} not defined.`);
+        throw new FormulaInterpreterError(`The variable ${astTree.fieldName} not defined.`);
       if (typeof fieldValue === "number") {
         return ExpressionConstructor.fieldReference<T, number>(
           astTree.fieldName!
@@ -152,7 +156,7 @@ export class FormulaInterpreter {
             right
           );
         default:
-          throw new Error(
+          throw new FormulaInterpreterError(
             `This comparison ${comparisonOperator} method is not supported`
           );
       }
@@ -166,9 +170,12 @@ export class FormulaInterpreter {
         isFalse
       );
     } else {
-      throw new Error(
+      throw new FormulaInterpreterError(
         `This Expression is not Correct. Please verify Your expression [Interpreter]:${astTree}`
       );
     }
+  }catch(e:unknown) {
+     throw e
+  }
   }
 }

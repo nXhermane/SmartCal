@@ -1,151 +1,199 @@
 # SmartCal
 
-**SmartCal** is a lightweight JavaScript library designed to evaluate complex mathematical expressions and ternary conditions using dynamic variables. It allows you to calculate formulas based on user input, make decisions using ternary operators, and even use variables that point to other formulas.
+**SmartCal** is a lightweight JavaScript library designed to evaluate mathematical expressions, formulas, and conditional expressions dynamically. It supports variables, nested formulas, and complex mathematical operations.
 
-## Features
+## ⭐ Features
 
-- Supports arithmetic operations like addition, subtraction, multiplication, division and exponent.
-- Handles ternary conditions (i.e., `condition ? true : false`).
-- Allows the use of custom variables within formulas.
-- Supports formula variables that point to other formulas.
-- Lightweight and fast.
-- Perfect for evaluating dynamic expressions and conditions.
+- Arithmetic operations (+, -, *, /, ^, %)
+- Comparison operators (>, <, >=, <=, ==, !=)
+- Logical operators (&&, ||)
+- Ternary conditions (condition ? true : false)
+- Formula variables and nested formulas
+- Compile expressions for reuse
 
-## Installation
-
-You can install SmartCal using npm:
+## 📦 Installation
 
 ```bash
 npm install smartcal
 ```
 
-## Getting Started
+## 🚀 Quick Start
 
-To get started with SmartCal, follow these steps:
-
-1. Install the library using npm.
-2. Import the library into your project.
-3. Define your data, including any formula variables.
-4. Use formulas with variables and evaluate them using SmartCal.
-
-## Usage
-
-To use SmartCal, import the library into your project, define your data (including any formula variables), and use formulas with variables. You can also use ternary operators for conditional evaluations inside the expressions.
-
-### Example 1: Basic Usage
-
-```typescript
-import SmartCal, { isValidExpression } from "smartcal";
-
-// Define the data with custom variables
-const data: Data = {
-   age: 20,
-   gender: "M",
-   weight: 60,
-   height: 1.64,
-   activityLevel: 1.56,
-   f_BMI: "10+5",
-};
-
-type Data = {
-   age: number;
-   gender: string;
-   weight: number;
-   height: number;
-   activityLevel: number;
-   f_BMI: string;
-};
-
-// Define a formula with custom variables
-const formula1 = `(10 * weight) + (6.25 * height) - (5 * age) + ((gender == "M" ? 5 : (-161)) * activityLevel) * f_BMI`;
-
-// Define a conditional expression with a ternary operator
-const condition = `(10 + ((10 > 5) ? ((11 + 5) - 5) : "false"))`;
-
-// Verify if the expression is valid
-console.log(isValidExpression(formula1)); // true
-console.log(isValidExpression(condition)); // true
-
-// Evaluate the formula with the provided data
-console.log(SmartCal<Data>(formula1, data));
-
-// Evaluate the condition
-console.log(SmartCal<{ [key: string]: string | number }>(condition, {}));
-```
-
-### Example 2: Usage with Formula Variables
+### Basic Evaluation
 
 ```typescript
 import SmartCal from "smartcal";
 
-// Define the data with custom variables, including formula variables
-const data: Data = {
-   age: 20,
-   gender: "M",
-   weight: 60,
-   height: 1.64,
-   activityLevel: 1.56,
-   f_BMI: "weight / (height * height)", // Formula variable for BMI
-   f_basalMetabolism: "(10 * weight) + (6.25 * height * 100) - (5 * age) + ((gender == 'M' ? 5 : -161))" // Formula variable for basal metabolic rate
-};
+// Basic arithmetic
+console.log(SmartCal("2 + 3 * 4")); // 14
+console.log(SmartCal("2 ^ 3")); // 8
+console.log(SmartCal("10 % 3")); // 1
 
-type Data = {
-   age: number;
-   gender: string;
-   weight: number;
-   height: number;
-   activityLevel: number;
-   f_BMI: string;
-   f_basalMetabolism: string;
-};
+// With variables
+const data = { x: 10, y: 5 };
+console.log(SmartCal("x + y * 2", data)); // 20
+const conditionalData= { score: 85 };
 
-// Define a formula that uses both regular and formula variables
-const formula2 = `f_basalMetabolism * activityLevel * (f_BMI > 25 ? 1.1 : 1)`;
+// Simple ternary
+console.log(SmartCal(`score >= 80 ? 'A' : 'B'`, conditionalData)); // 'A'
 
-// Evaluate the formula with the provided data
-console.log(SmartCal<Data>(formula2, data));
-
-const exponentFormula = `2 ^ 3 + 1 ^ (-3)`;
-console.log(SmartCal<{}>(exponentFormula,{}));// 9
+// Nested conditions
+const grade = SmartCal(`score >= 90 ? "A" :
+   ((score >= 80) ? "B" : (score >= 70 ? "C" : "D"))
+`, conditionalData); // 'B
 ```
 
+## 📘 Advanced Usage
 
-## How it Works
+### Expression Validation
 
-### Regular Variables
-Regular variables are defined with their actual values in the data object. For example, `age: 20` or `weight: 60`.
-
-### Formula Variables
-Formula variables are defined with a string representation of a formula, prefixed with `f_`. For example:
 ```typescript
-f_BMI: "weight / (height * height)"
+import { isValidExpression } from "smartcal";
+
+// Valid expressions
+console.log(isValidExpression("2 + 2")); // true
+console.log(isValidExpression("x > 10 ? 'high' : 'low'")); // true
+console.log(isValidExpression("(a + b) * c")); // true
+
+// Invalid expressions
+console.log(isValidExpression("2 +")); // false
+console.log(isValidExpression("x > ? 1 : 0")); // false
+console.log(isValidExpression("(a + b * c")); // false
 ```
-These variables can use other variables in their formula definition.
 
-### Formulas with Variables
-SmartCal allows you to define a formula using placeholders (i.e., variables like age, weight, f_BMI, etc.) that are replaced with values or evaluated formulas from your data object. The formula is parsed, and the result is calculated.
+### Compiled Expressions
 
-Example: In the formula `f_basalMetabolism * activityLevel * (f_BMI > 25 ? 1.1 : 1)`, the variables `f_basalMetabolism`, `activityLevel`, and `f_BMI` are replaced with their respective values or evaluated formulas from the data object, and the result is computed.
+```typescript
+import { compile } from "smartcal";
 
-### Ternary Conditions
-The library supports ternary conditions, where the expression returns one of two values based on a condition. For example, `(f_BMI > 25 ? 1.1 : 1)` returns 1.1 if the BMI is greater than 25, otherwise it returns 1.
+// Create a reusable compiled expression
+const priceCalculator = compile("quantity * unitPrice * (1 - discount)");
 
-### Arithmetic and Logical Operations
-You can mix arithmetic and logical operations in a single formula. The library interprets and computes the result dynamically, ensuring that the expressions are evaluated in real-time based on the provided data.
+// Use it multiple times with different data
+console.log(priceCalculator.evaluate({
+    quantity: 5,
+    unitPrice: 10,
+    discount: 0.1
+})); // 45
 
-## API
+console.log(priceCalculator.evaluate({
+    quantity: 3,
+    unitPrice: 15,
+    discount: 0.2
+})); // 36
 
-`SmartCal(expression: string, data: object)`: Evaluates the given mathematical or logical expression with the provided data.
-- `expression`: A string that represents the formula or condition.
-- `data`: An object containing key-value pairs for the variables used in the expression, including formula variables prefixed with `f_`.
+// Compile complex formulas
+const taxCalculator = compile(`
+    subtotal > 1000 
+        ? (subtotal * (1 + taxRate) * 0.95)
+        : (subtotal * (1 + taxRate))
+`);
 
-`isValidExpression(expression: string)`: Check if the given expression is valid and can be evaluated.
-- `expression`: A string that represents the formula or condition.
+console.log(taxCalculator.evaluate({
+    subtotal: 1500,
+    taxRate: 0.2
+})); // 1710 (includes 5% discount)
 
-## Contributing
+// Get the original expression
+console.log(taxCalculator.toString()); // prints the original formula
+
+
+// Chain multiple compilations
+const discountCalculator = compile("price >= 100 ? (discount * 2) : discount");
+const finalPrice = compile(`basePrice * (1 - discountCalculator)`);
+
+console.log(finalPrice.evaluate({
+    basePrice: 120,
+    price: 120,
+    discount: 0.1,
+    discountCalculator
+})); // 96 (120 * (1 - 0.2))
+```
+
+### Working with Formula Variables
+
+```typescript
+import SmartCal,{ConditionResult} from "smartcal";
+
+const data = {
+    basePrice: 100,
+    quantity: 5,
+    f_subtotal: "basePrice * quantity",
+    f_discount: "f_subtotal >= 500 ? 0.1 : 0.05",
+    f_final: "f_subtotal * (1 - f_discount)"
+};
+
+// Evaluate nested formulas
+console.log(SmartCal("f_final", data)); // 450 (500 * 0.9)
+
+// Complex conditional formulas
+const orderData = {
+   items: 3,
+   unitPrice: 40,
+   isPremium: ConditionResult.True,
+   f_baseTotal: "items * unitPrice",
+   f_discount: "isPremium ? 0.15 : (f_baseTotal > 100 ? 0.1 : 0)",
+   f_shipping: "f_baseTotal > 200 ? 0 : 10",
+   f_grandTotal: "f_baseTotal * (1 - f_discount) + f_shipping"
+};
+
+console.log(SmartCal("f_grandTotal", orderData)); // 112 (120 * 0.85 + 10)
+```
+
+## 📖 Documentation
+
+### Supported Operators
+
+- Arithmetic: `+`, `-`, `*`, `/`, `^`, `%`
+- Comparison: `>`, `<`, `>=`, `<=`, `==`, `!=`
+- Logical: `&&`, `||`
+- Ternary: `?`, `:`
+- Grouping: `(`, `)`
+
+### API Reference
+
+```typescript
+// Simple evaluation
+SmartCal<T>(expression: string, data?: T): number | string
+
+// Expression validation
+isValidExpression(expression: string): boolean
+
+// Compilation for reuse
+compile(expression: string): CompiledExpression
+
+// CompiledExpression interface
+interface CompiledExpression {
+    evaluate<T>(data: T): number | string;
+    toString(): string;
+}
+```
+
+## ⚠️ Important Notes
+
+### Ternary Operators
+
+```typescript
+// Wrong
+const expression = `variable > 6 ? 0.5*anotherVariable : 0.5`
+// Correct
+const expression = `variable > 6 ? (0.5*anotherVariable) : 0.5`
+```
+
+### Boolean Variables
+
+```typescript
+const data = {
+    bool: ConditionResult.True, // 1
+    bool2: ConditionResult.False // 0
+}
+const expression = `bool ? "True" : bool2 ? "False" : "True"`
+```
+
+## 🤝 Contributing
 
 Contributions are welcome! Please feel free to submit a Pull Request.
 
-## License
+## 📄 License
 
-This project is licensed under the MIT License.
+This project is licensed under the [MIT License](./LISENCE).

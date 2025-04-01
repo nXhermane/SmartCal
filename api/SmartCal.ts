@@ -1,7 +1,7 @@
 import { FormulaInterpreter } from "../interpreter/FormulaInterpreter";
 import { FormulaParser } from "../parser/FormulaParser";
 import { FormulaTokenizer } from "../tokenizer/FormulaTokenizer";
-import { DataType } from "./type";
+import { DataType } from "../types";
 
 /**
  * Evaluates a mathematical expression and returns the result.

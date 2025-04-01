@@ -13,136 +13,8 @@ import {
   QuestionMarkOperator,
   REGEX,
 } from "../constant";
-
-const OperatorValue = [...ArithmeticOperator, ...ComparisonOperator];
-/**
- * Represents the supported operators in the expression.
- */
-type Operator = (typeof OperatorValue)[number];
-// | "+"
-// | "-"
-// | "/"
-// | "*"
-// | ">"
-// | "||"
-// | "<"
-// | "&&"
-// | ">="
-// | "<="
-// | "=="
-// | "!=";
-
-/**
- * Defines the structure of a Node in the Abstract Syntax Tree (AST).
- */
-export interface Node {
-  operator?: Operator; // The operator associated with the node.
-  left?: Node; // The left child node.
-  right?: Node; // The right child node.
-  condition?: Node; // The condition for conditional nodes.
-  isTrue?: Node; // The node representing the true branch of a conditional.
-  isFalse?: Node; // The node representing the false branch of a conditional.
-  value?: number | string; // The value of the node, can be a number or a string.
-  fieldName?: string; // The name of the field for field nodes.
-
-  /**
-   * Checks if the node is conditional.
-   * @returns {boolean} True if the node is conditional; otherwise, false.
-   */
-  isConditional(): boolean;
-
-  /**
-   * Checks if the node represents a value.
-   * @returns {boolean} True if the node is a value; otherwise, false.
-   */
-  isValue(): boolean;
-
-  /**
-   * Checks if the node is a comparison operator.
-   * @returns {boolean} True if the node is a comparison; otherwise, false.
-   */
-  isComparison(): boolean;
-
-  /**
-   * Checks if the node is a field.
-   * @returns {boolean} True if the node is a field; otherwise, false.
-   */
-  isField(): boolean;
-
-  /**
-   * Checks if the node is a generic node.
-   * @returns {boolean} True if the node is a node; otherwise, false.
-   */
-  isNode(): boolean;
-}
-
-/**
- * Represents a node in the Abstract Syntax Tree (AST).
- */
-export class AstNode implements Node {
-  operator?: Operator; // The operator associated with this node.
-  left?: Node; // The left child node.
-  right?: Node; // The right child node.
-  condition?: Node; // The condition for conditional nodes.
-  isTrue?: Node; // The node representing the true branch of a conditional.
-  isFalse?: Node; // The node representing the false branch of a conditional.
-  value?: number | string; // The value of the node, can be a number or a string.
-  fieldName?: string; // The name of the field for field nodes.
-
-  /**
-   * Determines if this node is conditional.
-   * @returns {boolean} True if the node is conditional; otherwise, false.
-   */
-  isConditional() {
-    return !!this.condition && !!this.isFalse && !!this.isTrue;
-  }
-
-  /**
-   * Determines if this node represents a value.
-   * @returns {boolean} True if the node is a value; otherwise, false.
-   */
-  isValue(): boolean {
-    return this.value != undefined;
-  }
-
-  /**
-   * Determines if this node is a comparison operator.
-   * @returns {boolean} True if the node is a comparison; otherwise, false.
-   */
-  isComparison(): boolean {
-    return !!this.isComparisonOperator();
-  }
-
-  /**
-   * Determines if this node is a field.
-   * @returns {boolean} True if the node is a field; otherwise, false.
-   */
-  isField(): boolean {
-    return !!this.fieldName;
-  }
-
-  /**
-   * Determines if this node is a generic node.
-   * @returns {boolean} True if the node is a node; otherwise, false.
-   */
-  isNode() {
-    return (
-      !this.isValue() &&
-      !this.isField() &&
-      !this.isComparison() &&
-      !this.isConditional()
-    );
-  }
-
-  /**
-   * Checks if the operator is a comparison operator.
-   * @returns {boolean} True if the operator is a comparison operator; otherwise, false.
-   */
-  private isComparisonOperator() {
-    if (ComparisonOperator.includes(this.operator as string)) return true;
-    return false;
-  }
-}
+import { Operator } from "../types";
+import { AstNode, INode } from "./AstNode";
 
 /**
  * Parses formulas and generates an Abstract Syntax Tree (AST).
@@ -153,7 +25,7 @@ export class FormulaParser {
    * @param tokens - An array of tokens representing the formula.
    * @returns {boolean} True if the tokens form a valid formula; otherwise, false.
    */
-  private isFormula(tokens: (string | number)[]) {
+  private isFormula(tokens: (string | number)[]): boolean {
     let notOperatorLastIndex = 1;
     let operatorLastIndex = 1;
     const operatorRegex = REGEX.formulaOperator;
@@ -272,11 +144,11 @@ export class FormulaParser {
   /**
    * Executes the parsing of the provided tokens and generates an AST.
    * @param tokens - An array of tokens to parse.
-   * @returns {Node} The root node of the generated AST.
+   * @returns {INode} The root node of the generated AST.
    * @throws {Error} Throws an error if the tokens are not a valid formula.
    */
-  execute(tokens: (string | number)[]): Node {
-    if (tokens.length !=0 && this.isFormula(tokens)) {
+  execute(tokens: (string | number)[]): INode {
+    if (tokens.length != 0 && this.isFormula(tokens)) {
       this.checkSyntax(tokens);
       return this.parser(tokens);
     } else {
@@ -287,9 +159,9 @@ export class FormulaParser {
   /**
    * Parses the provided tokens and generates an AST.
    * @param tokens - An array of tokens to parse.
-   * @returns {AstNode} The root node of the generated AST.
+   * @returns {INode} The root node of the generated AST.
    */
-  private parser(tokens: (string | number)[]): AstNode {
+  private parser(tokens: (string | number)[]): INode {
     const postFixExpression = this.infixToPostFix(tokens);
     const result = this.generateAST(postFixExpression);
     return result;
@@ -298,11 +170,11 @@ export class FormulaParser {
   /**
    * Generates an Abstract Syntax Tree (AST) from the given tokens.
    * @param tokens - An array of tokens to generate the AST from.
-   * @returns {AstNode} The root node of the generated AST.
+   * @returns {INode} The root node of the generated AST.
    */
 
-  private generateAST(tokens: (string | number)[]): AstNode {
-    const stack: AstNode[] = [];
+  private generateAST(tokens: (string | number)[]): INode {
+    const stack: INode[] = [];
     let counter = 0;
     return this._generateAST(tokens, counter, stack);
   }
@@ -312,13 +184,13 @@ export class FormulaParser {
    * @param tokens - An array of tokens to generate the AST from.
    * @param index - The current index in the tokens array.
    * @param stack - The stack of nodes being built for the AST.
-   * @returns {AstNode} The root node of the generated AST.
+   * @returns {INode} The root node of the generated AST.
    */
   private _generateAST(
     tokens: (string | number)[],
     index: number,
-    stack: AstNode[] = []
-  ): AstNode {
+    stack: INode[] = []
+  ): INode {
     const token = tokens[index];
     if (token == undefined) return stack[0];
     if (this.isOperatorFirstAndParenthesis(token)) {
@@ -339,7 +211,7 @@ export class FormulaParser {
     } else {
       const node = new AstNode();
       if (this.isValue(token)) {
-        node.value = token as number;
+        node.value = token as string | number;
       } else {
         node.fieldName = token as string;
       }
@@ -479,7 +351,7 @@ export class FormulaParser {
    * @returns {boolean} - True if the token is a valid value; otherwise, false.
    */
   private isValue(token: string | number): boolean {
-    const valueRegex = /"[\w]+"/;
+    const valueRegex = /["'][\w]+["']/;
     return typeof token === "number" || valueRegex.test(token) ? true : false;
   }
 }

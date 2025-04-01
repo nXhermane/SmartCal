@@ -3,6 +3,7 @@ import { REGEX } from "./../constant";
 import { FormulaParser } from "../parser/FormulaParser";
 import { FormulaTokenizer } from "../tokenizer/FormulaTokenizer";
 import { FormulaInterpreter } from "../interpreter/FormulaInterpreter";
+import { CompiledExpression } from "./CompiledExpression";
 
 /**
  * Represents a reference to a field in a given object, allowing
@@ -31,6 +32,8 @@ export class FieldReference<
     if (obj != null && obj != undefined) {
       if (obj[this.fieldName] != undefined) {
         if (this.isFormulaRef()) return this.executeFormulaRef(obj);
+        if (this.isCompiledExpression(obj))
+          return this.evaluateCompiledExpression(obj);
         return obj[this.fieldName];
       }
     }
@@ -47,6 +50,14 @@ export class FieldReference<
   private isFormulaRef(): boolean {
     return REGEX.formulaFieldName.test(this.fieldName);
   }
+  /**
+   * Checks if the field name corresponds to a Compiled Expression
+   * @param obj {T} The object from which to extract the field value.
+   * @returns {boolean}  True if the field is a formula reference, otherwise false.
+   */
+  private isCompiledExpression(obj: T): boolean {
+    return obj[this.fieldName]?.type === "CompiledExpression";
+  }
 
   /**
    * Executes the formula reference and returns the result of the interpretation.
@@ -62,5 +73,14 @@ export class FieldReference<
       fTokenizer.execute(obj[this.fieldName] as string)
     );
     return fInterpreter.execute<T>(astTree, obj) as R;
+  }
+  /**
+   * Evaluate the compiled Expression
+   * @param obj - The object from which to extract the formula.
+   * @returns The result of evaluate the compiled Expression.
+   */
+  private evaluateCompiledExpression(obj: T): R {
+    const compiledExpression = obj[this.fieldName] as CompiledExpression;
+    return compiledExpression.evaluate(obj) as R;
   }
 }
