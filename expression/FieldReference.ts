@@ -31,7 +31,8 @@ export class FieldReference<
   execute(obj: T): R {
     if (obj != null && obj != undefined) {
       if (obj[this.fieldName] != undefined) {
-        if (this.isFormulaRef()) return this.executeFormulaRef(obj);
+        if (this.isFormulaRef() && typeof obj[this.fieldName] === "string")
+          return this.executeFormulaRef(obj);
         if (this.isCompiledExpression(obj))
           return this.evaluateCompiledExpression(obj);
         return obj[this.fieldName];

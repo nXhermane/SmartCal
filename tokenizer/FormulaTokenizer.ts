@@ -1,4 +1,5 @@
 import {
+  Operators,
   ParenthesisOpenOperator,
   Priority_1_Operator as SignOperators,
   REGEX,
@@ -40,30 +41,36 @@ export class FormulaTokenizer {
       if (regex.test(token)) {
         const firstPop = filteredTokens.pop();
         const secondPop = filteredTokens.pop();
-        if (firstPop != undefined && secondPop != undefined) {
-          if (
-            SignOperators.includes(firstPop as string) &&
-            secondPop === ParenthesisOpenOperator
-          ) {
+
+        if (firstPop !== undefined) {
+          const isSign = SignOperators.includes(firstPop as string);
+          const isPrecededByOperator =
+            secondPop !== undefined &&
+            typeof secondPop === "string" &&
+            Operators.includes(secondPop);
+          const isPrecededByParen = secondPop === ParenthesisOpenOperator;
+          const isAtStart = secondPop === undefined;
+
+          if (isSign && isPrecededByParen) {
+            // Special case for `(-2)`
             filteredTokens.push(Number(firstPop + token));
             expectedClosedParenthesis = true;
+          } else if (isSign && (isPrecededByOperator || isAtStart)) {
+            // It's a signed number
+            if (secondPop !== undefined) {
+              filteredTokens.push(secondPop);
+            }
+            filteredTokens.push(Number(firstPop + token));
           } else {
-            filteredTokens.push(
-              secondPop as string,
-              firstPop as string,
-              Number(token)
-            );
+            // Not a signed number, push everything back
+            if (secondPop !== undefined) {
+              filteredTokens.push(secondPop);
+            }
+            filteredTokens.push(firstPop, Number(token));
           }
         } else {
-          if (secondPop == undefined) {
-            if (firstPop != undefined) {
-              filteredTokens.push(firstPop as string, Number(token));
-            } else {
-              filteredTokens.push(Number(token));
-            }
-          } else {
-            filteredTokens.push(Number(token));
-          }
+          // No token before, just a number
+          filteredTokens.push(Number(token));
         }
       } else if (
         negativeNumberRegex.test(lastFilteredToken as string) &&
