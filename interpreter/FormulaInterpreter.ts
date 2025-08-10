@@ -16,7 +16,6 @@ import {
   MultiplicationOperator,
   NotEqualOperator,
   SubtractionOperator,
-  UnaryOperator,
 } from "../constant";
 import { DataType } from "../types";
 import { FormulaInterpreterError } from "../errors/FormulaInterpreterError";
@@ -105,15 +104,18 @@ export class FormulaInterpreter {
         );
       }
     } else if (astTree.isField()) {
-      return ExpressionConstructor.fieldReference<T, string | number>(
-        astTree.fieldName!
-      );
-    } else if (astTree.isUnary()) {
-      const operand = this.interpret<T>(astTree.operand!, data);
-      if (astTree.operator === "u-") {
-        return ExpressionConstructor.negation(operand as Expression<T, number>);
+      const fieldValue = data[String(astTree.fieldName!)];
+      if (fieldValue === undefined)
+        throw new FormulaInterpreterError(`The variable ${astTree.fieldName} not defined.`);
+      if (typeof fieldValue === "number") {
+        return ExpressionConstructor.fieldReference<T, number>(
+          astTree.fieldName!
+        );
+      } else {
+        return ExpressionConstructor.fieldReference<T, string>(
+          astTree.fieldName!
+        );
       }
-      return operand;
     } else if (astTree.isComparison()) {
       const comparisonOperator = astTree.operator;
       const left = this.interpret<T>(astTree.left!, data);

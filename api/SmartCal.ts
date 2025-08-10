@@ -12,12 +12,8 @@ import { DataType } from "../types";
  * @template T - A generic type representing the structure of the input object. Keys are variable names, and values can be numbers, strings, or arrays.
  * @param {string} expression - The mathematical expression to be evaluated.
  *        Variables in the expression should correspond to keys in the `obj` parameter.
- * @param {T} [obj] - An object containing the values of the variables referenced in the expression.
- * @returns {number | string} - The result of the evaluated expression, which can be a number or a string.
- * @example
- * SmartCal("1 + 2 * 3"); // 7
- * SmartCal("x + y", { x: 5, y: 10 }); // 15
- * SmartCal("age > 18 ? 'adult' : 'minor'", { age: 20 }); // "adult"
+ * @param {T} obj - An object containing the values of the variables referenced in the expression.
+ * @returns {number | string | any[]} - The result of the evaluated expression, which can be a number, a string, or an array depending on the expression's logic.
  */
 export default function SmartCal<T extends DataType>(
   expression: string,

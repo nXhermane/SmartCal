@@ -53,24 +53,6 @@ describe("FormulaInterpreter", () => {
   });
 
   test("should throw an error for undefined variables", () => {
-    expect(() => evaluate("f_x + f_z")).toThrow("The fieldName f_x does not exist or is undefined on object [object Object]");
-  });
-
-  test("should handle nested formulas", () => {
-    const data = {
-      f_a: 10,
-      f_b: "f_a * 2",
-      f_c: "f_b + 5",
-    };
-    expect(evaluate("f_c", data)).toBe(25);
-  });
-
-  test("should handle compiled expressions", () => {
-    const { compile } = require("../../api/Compile");
-    const data = {
-      price: 100,
-      discount: compile("price * 0.1"),
-    };
-    expect(evaluate("price - discount", data)).toBe(90);
+    expect(() => evaluate("f_x + f_z")).toThrow("The variable f_z not defined.");
   });
 });

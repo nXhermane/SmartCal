@@ -7,10 +7,12 @@ import { CompiledExpression } from "./CompiledExpression";
 import { FormulaVariableNotFoundError } from "../errors/FormulaVariableNotFoundError";
 
 /**
- * Represents a reference to a field in the data object.
- * If the field name starts with "f_", it is treated as a formula to be evaluated.
- * @template T The type of the data object used for evaluation.
- * @template R The type of the result of the evaluation.
+ * Represents a reference to a field in a given object, allowing
+ * for the execution of expressions and the interpretation of formulas.
+ *
+ * @template T - The type of the object containing the fields.
+ * @template R - The type of the return value of the expression.
+ * @param {string} fieldName - The name of the field to reference in the object.
  */
 export class FieldReference<
   T extends { [kex: string]: any },
