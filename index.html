@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset='utf-8'>
-  <title>smartcal 1.0.9 | Documentation</title>
+  <title>smartcal 1.0.10 | Documentation</title>
   <meta name='description' content='SmartCal is a lightweight and powerful library for evaluating complex mathematical expressions dynamically. It supports tokenization, parsing, and interpreting mathematical formulas seamlessly, offering flexibility to integrate custom data objects for dynamic calculations. Ideal for developers needing a robust calculation engine in JavaScript/TypeScript projects.'>
   <meta name='viewport' content='width=device-width,initial-scale=1'>
   <link href='assets/bass.css' rel='stylesheet'>
@@ -15,7 +15,7 @@
       <div id='split-left' class='overflow-auto fs0 height-viewport-100'>
         <div class='py1 px2'>
           <h3 class='mb0 no-anchor'>smartcal</h3>
-          <div class='mb1'><code>1.0.9</code></div>
+          <div class='mb1'><code>1.0.10</code></div>
           <input
             placeholder='Filter'
             id='filter-input'
@@ -44,50 +44,6 @@
                   isValidExpression
                   
                 </a>
-                
-                </li>
-              
-                
-                <li><a
-                  href='#smartcal'
-                  class="">
-                  SmartCal
-                  
-                </a>
-                
-                </li>
-              
-                
-                <li><a
-                  href='#formulainterpreter'
-                  class=" toggle-sibling">
-                  FormulaInterpreter
-                  <span class='icon'>▸</span>
-                </a>
-                
-                <div class='toggle-target display-none'>
-                  
-                  
-                    <ul class='list-reset py1-ul pl1'>
-                      <li class='h5'><span>Instance members</span></li>
-                      
-                      <li><a
-                        href='#formulainterpreterexecute'
-                        class='regular pre-open'>
-                        #execute
-                      </a></li>
-                      
-                      <li><a
-                        href='#formulainterpreterinterpret'
-                        class='regular pre-open'>
-                        #interpret
-                      </a></li>
-                      
-                    </ul>
-                  
-                  
-                  
-                </div>
                 
                 </li>
               
@@ -165,11 +121,45 @@
               
                 
                 <li><a
-                  href='#operator'
+                  href='#smartcal'
                   class="">
-                  Operator
+                  SmartCal
                   
                 </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#formulainterpreter'
+                  class=" toggle-sibling">
+                  FormulaInterpreter
+                  <span class='icon'>▸</span>
+                </a>
+                
+                <div class='toggle-target display-none'>
+                  
+                  
+                    <ul class='list-reset py1-ul pl1'>
+                      <li class='h5'><span>Instance members</span></li>
+                      
+                      <li><a
+                        href='#formulainterpreterexecute'
+                        class='regular pre-open'>
+                        #execute
+                      </a></li>
+                      
+                      <li><a
+                        href='#formulainterpreterinterpret'
+                        class='regular pre-open'>
+                        #interpret
+                      </a></li>
+                      
+                    </ul>
+                  
+                  
+                  
+                </div>
                 
                 </li>
               
@@ -266,6 +256,16 @@
                   
                   
                 </div>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#operator'
+                  class="">
+                  Operator
+                  
+                </a>
                 
                 </li>
               
@@ -801,310 +801,6 @@
   
   <div class='clearfix'>
     
-    <h3 class='fl m0' id='smartcal'>
-      SmartCal
-    </h3>
-    
-    
-  </div>
-  
-
-  <p>Evaluates a mathematical expression and returns the result.</p>
-<p>This function parses and interprets a mathematical formula represented as a string,
-applying dynamic values from a given object to resolve variables or conditions within the expression.</p>
-
-    <div class='pre p1 fill-light mt0'>new SmartCal(expression: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, obj: T): (<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a> | <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a> | <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;any>)</div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Parameters</div>
-    <div class='prose'>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>expression</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
-	    The mathematical expression to be evaluated.
-Variables in the expression should correspond to keys in the 
-<code>obj</code>
- parameter.
-
-          </div>
-          
-        </div>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>obj</span> <code class='quiet'>(T)</code>
-	    An object containing the values of the variables referenced in the expression.
-
-          </div>
-          
-        </div>
-      
-    </div>
-  
-
-  
-
-  
-    
-      <div class='py1 quiet mt1 prose-big'>Returns</div>
-      <code>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a> | <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a> | <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;any>)</code>:
-        The result of the evaluated expression, which can be a number, a string, or an array depending on the expression's logic.
-
-      
-    
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-</section>
-
-          
-        
-          
-          <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-  <div class='clearfix'>
-    
-    <h3 class='fl m0' id='formulainterpreter'>
-      FormulaInterpreter
-    </h3>
-    
-    
-  </div>
-  
-
-  <p>The FormulaInterpreter class is responsible for interpreting an abstract syntax tree (AST)
-representing a mathematical or logical expression. It evaluates expressions based on provided
-variable data and constructs appropriate expression objects for processing.</p>
-
-    <div class='pre p1 fill-light mt0'>new FormulaInterpreter()</div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Instance Members</div>
-    <div class="clearfix">
-  
-    <div class='border-bottom' id='formulainterpreterexecute'>
-      <div class="clearfix small pointer toggle-sibling">
-        <div class="py1 contain">
-            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
-            <span class='code strong strong truncate'>execute(astTree, data)</span>
-        </div>
-      </div>
-      <div class="clearfix display-none toggle-target">
-        <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-
-  <p>Executes the interpretation of the AST tree and returns the evaluated result.</p>
-
-    <div class='pre p1 fill-light mt0'>execute(astTree: <a href="#inode">INode</a>, data: T): (<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a> | <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Parameters</div>
-    <div class='prose'>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>astTree</span> <code class='quiet'>(<a href="#inode">INode</a>)</code>
-	    The abstract syntax tree to be interpreted.
-
-          </div>
-          
-        </div>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>data</span> <code class='quiet'>(T)</code>
-	    The variable data to use for evaluation.
-
-          </div>
-          
-        </div>
-      
-    </div>
-  
-
-  
-
-  
-    
-      <div class='py1 quiet mt1 prose-big'>Returns</div>
-      <code>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a> | <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>:
-        The result of the expression evaluation.
-
-      
-    
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-</section>
-
-      </div>
-    </div>
-  
-    <div class='border-bottom' id='formulainterpreterinterpret'>
-      <div class="clearfix small pointer toggle-sibling">
-        <div class="py1 contain">
-            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
-            <span class='code strong strong truncate'>interpret(astTree, data)</span>
-        </div>
-      </div>
-      <div class="clearfix display-none toggle-target">
-        <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-
-  <p>Interprets the AST tree recursively and constructs expression objects based on the node types.</p>
-
-    <div class='pre p1 fill-light mt0'>interpret(astTree: <a href="#inode">INode</a>, data: T): <a href="#expression">Expression</a>&#x3C;T, (<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a> | <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>)></div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Parameters</div>
-    <div class='prose'>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>astTree</span> <code class='quiet'>(<a href="#inode">INode</a>)</code>
-	    The abstract syntax tree to interpret.
-
-          </div>
-          
-        </div>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>data</span> <code class='quiet'>(T)</code>
-	    The variable data to use for evaluation.
-
-          </div>
-          
-        </div>
-      
-    </div>
-  
-
-  
-
-  
-    
-      <div class='py1 quiet mt1 prose-big'>Returns</div>
-      <code><a href="#expression">Expression</a>&#x3C;T, (<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a> | <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>)></code>:
-        The constructed expression object.
-
-      
-    
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-</section>
-
-      </div>
-    </div>
-  
-</div>
-
-  
-
-  
-
-  
-</section>
-
-          
-        
-          
-          <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-  <div class='clearfix'>
-    
     <h3 class='fl m0' id='formulaparser'>
       FormulaParser
     </h3>
@@ -1491,22 +1187,19 @@ and filters the tokens to produce a final result.</p>
   
   <div class='clearfix'>
     
-    <h3 class='fl m0' id='operator'>
-      Operator
+    <h3 class='fl m0' id='smartcal'>
+      SmartCal
     </h3>
     
     
   </div>
   
 
-  <p>Represents the supported operators in the expression.</p>
+  <p>Evaluates a mathematical expression and returns the result.</p>
+<p>This function parses and interprets a mathematical formula represented as a string,
+applying dynamic values from a given object to resolve variables or conditions within the expression.</p>
 
-    <div class='pre p1 fill-light mt0'>Operator</div>
-  
-    <p>
-      Type:
-      any
-    </p>
+    <div class='pre p1 fill-light mt0'>new SmartCal(expression: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, obj: T): (<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a> | <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a> | <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;any>)</div>
   
   
 
@@ -1518,7 +1211,43 @@ and filters the tokens to produce a final result.</p>
   
 
   
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>expression</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    The mathematical expression to be evaluated.
+Variables in the expression should correspond to keys in the 
+<code>obj</code>
+ parameter.
 
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>obj</span> <code class='quiet'>(T)</code>
+	    An object containing the values of the variables referenced in the expression.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a> | <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a> | <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;any>)</code>:
+        The result of the evaluated expression, which can be a number, a string, or an array depending on the expression's logic.
+
+      
+    
   
 
   
@@ -1530,6 +1259,222 @@ and filters the tokens to produce a final result.</p>
   
 
   
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='formulainterpreter'>
+      FormulaInterpreter
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>The FormulaInterpreter class is responsible for interpreting an abstract syntax tree (AST)
+representing a mathematical or logical expression. It evaluates expressions based on provided
+variable data and constructs appropriate expression objects for processing.</p>
+
+    <div class='pre p1 fill-light mt0'>new FormulaInterpreter()</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Instance Members</div>
+    <div class="clearfix">
+  
+    <div class='border-bottom' id='formulainterpreterexecute'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>execute(astTree, data)</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Executes the interpretation of the AST tree and returns the evaluated result.</p>
+
+    <div class='pre p1 fill-light mt0'>execute(astTree: <a href="#inode">INode</a>, data: T): (<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a> | <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>astTree</span> <code class='quiet'>(<a href="#inode">INode</a>)</code>
+	    The abstract syntax tree to be interpreted.
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>data</span> <code class='quiet'>(T)</code>
+	    The variable data to use for evaluation.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a> | <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>:
+        The result of the expression evaluation.
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='formulainterpreterinterpret'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>interpret(astTree, data)</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Interprets the AST tree recursively and constructs expression objects based on the node types.</p>
+
+    <div class='pre p1 fill-light mt0'>interpret(astTree: <a href="#inode">INode</a>, data: T): <a href="#expression">Expression</a>&#x3C;T, (<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a> | <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>)></div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>astTree</span> <code class='quiet'>(<a href="#inode">INode</a>)</code>
+	    The abstract syntax tree to interpret.
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>data</span> <code class='quiet'>(T)</code>
+	    The variable data to use for evaluation.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="#expression">Expression</a>&#x3C;T, (<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a> | <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>)></code>:
+        The constructed expression object.
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+</div>
 
   
 
@@ -2101,6 +2046,61 @@ and filters the tokens to produce a final result.</p>
     </div>
   
 </div>
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='operator'>
+      Operator
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Represents the supported operators in the expression.</p>
+
+    <div class='pre p1 fill-light mt0'>Operator</div>
+  
+    <p>
+      Type:
+      any
+    </p>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
 
   
 
