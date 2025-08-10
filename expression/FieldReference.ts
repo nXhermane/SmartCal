@@ -4,6 +4,7 @@ import { FormulaParser } from "../parser/FormulaParser";
 import { FormulaTokenizer } from "../tokenizer/FormulaTokenizer";
 import { FormulaInterpreter } from "../interpreter/FormulaInterpreter";
 import { CompiledExpression } from "./CompiledExpression";
+import { FormulaVariableNotFoundError } from "../errors/FormulaVariableNotFoundError";
 
 /**
  * Represents a reference to a field in a given object, allowing
@@ -38,8 +39,10 @@ export class FieldReference<
         return obj[this.fieldName];
       }
     }
-    throw new Error(
-      `The fieldName ${this.fieldName} does not exist or is undefined on object ${obj}`
+    throw new FormulaVariableNotFoundError(
+      `The fieldName ${this.fieldName} does not exist or is undefined on object ${obj}`,
+      this.fieldName,
+      obj
     );
   }
 

@@ -13,6 +13,7 @@ import {
   QuestionMarkOperator,
   REGEX,
 } from "../constant";
+import { IncorrectSyntaxError, InvalidFormulaError } from "../errors";
 import { Operator } from "../types";
 import { AstNode, INode } from "./AstNode";
 
@@ -51,6 +52,7 @@ export class FormulaParser {
   /**
    * Checks the syntax of the provided tokens.
    * @param tokens - An array of tokens to check.
+   * @throws {IncorrectSyntaxError} Throws an error if the syntax is not correct
    */
   private checkSyntax(tokens: (string | number)[]) {
     this.checkParenthesisSyntax(tokens);
@@ -61,7 +63,7 @@ export class FormulaParser {
   /**
    * Checks the parenthesis syntax of the provided tokens.
    * @param tokens - An array of tokens to check.
-   * @throws {Error} Throws an error if there is a parenthesis mismatch.
+   * @throws {IncorrectSyntaxError} Throws an error if there is a parenthesis mismatch.
    */
   private checkParenthesisSyntax(tokens: (string | number)[]) {
     const stack: (string | number)[] = [];
@@ -70,39 +72,55 @@ export class FormulaParser {
         stack.push(ParenthesisOpenOperator);
       if (token === ParenthesisCloseOperator) {
         if (stack.length === 0) {
-          throw new Error("Parenthesis mismatch");
+          throw new IncorrectSyntaxError(
+            "Parenthesis mismatch",
+            tokens.join("")
+          );
         }
         stack.pop();
       }
     });
     if (stack.length !== 0) {
-      throw new Error("Incorrect parenthesis disposition.");
+      throw new IncorrectSyntaxError(
+        "Incorrect parenthesis disposition.",
+        tokens.join("")
+      );
     }
   }
 
   /**
    * Checks the operator syntax of the provided tokens.
    * @param tokens - An array of tokens to check.
-   * @throws {Error} Throws an error if there is an operator syntax error.
+   * @throws {IncorrectSyntaxError} Throws an error if there is an operator syntax error.
    */
   private checkOperatorSyntax(tokens: (string | number)[]) {
     const regex = /[+-\/*]{2,}/;
-    const expression = tokens.join("");
+    /**
+     * @version 1.0.9
+     * @note  Fix issus : Introduction de la copy des tokens avant de faire le join pour le cas ou on aura les valeurs négative
+     */
+    const tokensCopy = tokens.map((token) =>
+      typeof token === "string" ? token : Math.abs(token)
+    );
+    const expression = tokensCopy.join("");
     if (regex.test(expression)) {
-      throw new Error("Incorrect Operator error");
+      throw new IncorrectSyntaxError("Incorrect Operator error", expression);
     }
     // When tokens length is equal to one and the token is an string or number without operator , just return because is just an operand
     if (tokens.length == 1 && /\w/.test(expression)) return;
     const validOperationCheckerRegex = />=|<=|==|!=|&&|\|\||[+-\/*<>%\^][\w\(]/;
     if (!validOperationCheckerRegex.test(expression)) {
-      throw new Error("Incorrect Operator position for Operand");
+      throw new IncorrectSyntaxError(
+        "Incorrect Operator position for Operand",
+        expression
+      );
     }
   }
 
   /**
    * Checks the ternary condition syntax of the provided tokens.
    * @param tokens - An array of tokens to check.
-   * @throws {Error} Throws an error if there is a ternary syntax error.
+   * @throws {IncorrectSyntaxError} Throws an error if there is a ternary syntax error.
    */
   private checkTernaryConditionSyntax(tokens: (string | number)[]) {
     let ternaryQuestionMarkCount = 0;
@@ -113,14 +131,20 @@ export class FormulaParser {
     });
 
     if (ternaryQuestionMarkCount !== ternaryColonCount) {
-      throw new Error("Incorrect Ternary syntax: unmatched ? and :");
+      throw new IncorrectSyntaxError(
+        "Incorrect Ternary syntax: unmatched ? and :",
+        tokens.join("")
+      );
     }
     const ternaryRegex = /[?:]/;
     let expectingCondition = true;
     tokens.forEach((token: string | number) => {
       if (ternaryRegex.test(String(token))) {
         if (expectingCondition && token === ColonOperator) {
-          throw new Error("Ternary syntax error: found ':' before '?'");
+          throw new IncorrectSyntaxError(
+            "Ternary syntax error: found ':' before '?'",
+            tokens.join("")
+          );
         }
         expectingCondition = !expectingCondition;
       }
@@ -145,14 +169,17 @@ export class FormulaParser {
    * Executes the parsing of the provided tokens and generates an AST.
    * @param tokens - An array of tokens to parse.
    * @returns {INode} The root node of the generated AST.
-   * @throws {Error} Throws an error if the tokens are not a valid formula.
+   * @throws {IncorrectSyntaxError | InvalidFormulaError}  Throws an error if the tokens are not a valid formula.
    */
   execute(tokens: (string | number)[]): INode {
     if (tokens.length != 0 && this.isFormula(tokens)) {
       this.checkSyntax(tokens);
       return this.parser(tokens);
     } else {
-      throw new Error("[Error]: Not formula");
+      throw new InvalidFormulaError(
+        "Invalid formula error. Please check is formula. ",
+        tokens.join("")
+      );
     }
   }
 
