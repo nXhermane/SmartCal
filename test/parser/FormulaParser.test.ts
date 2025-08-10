@@ -91,5 +91,31 @@ describe("FormulaParser", () => {
       const tokens = tokenizer.execute("1 + * 2");
       expect(() => parser.execute(tokens)).toThrow();
     });
+
+    test("should handle nested ternary expressions", () => {
+      const tokens = tokenizer.execute("1 > 0 ? (2 > 1 ? 10 : 20) : 30");
+      const ast = parser.execute(tokens);
+
+      expect(ast.isConditional()).toBe(true);
+      expect(ast.condition?.operator).toBe(">");
+      expect(ast.isTrue?.isConditional()).toBe(true);
+      expect(ast.isTrue?.condition?.operator).toBe(">");
+      expect(ast.isTrue?.isTrue?.value).toBe(10);
+      expect(ast.isTrue?.isFalse?.value).toBe(20);
+      expect(ast.isFalse?.value).toBe(30);
+    });
+
+    test("should handle multiple levels of parentheses", () => {
+      const tokens = tokenizer.execute("((1 + 2) * 3) - 4");
+      const ast = parser.execute(tokens);
+
+      expect(ast.operator).toBe("-");
+      expect(ast.left?.operator).toBe("*");
+      expect(ast.left?.left?.operator).toBe("+");
+      expect(ast.left?.left?.left?.value).toBe(1);
+      expect(ast.left?.left?.right?.value).toBe(2);
+      expect(ast.left?.right?.value).toBe(3);
+      expect(ast.right?.value).toBe(4);
+    });
   });
 });

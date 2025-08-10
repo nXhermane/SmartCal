@@ -3,6 +3,7 @@ import { Expression } from "./Expression";
 import { FieldReference } from "./FieldReference";
 import { BinaryOperation } from "./BinaryOperation";
 import { ConditionalExpression } from "./ConditionalExpression";
+import { UnaryOperation } from "./UnaryOperation";
 
 export class ExpressionConstructor {
   /**
@@ -254,5 +255,11 @@ export class ExpressionConstructor {
       right,
       (a: number, b: number) => a % b
     );
+  }
+
+  static negation<T>(
+    operand: Expression<T, number>
+  ): Expression<T, number> {
+    return new UnaryOperation<T, number>(operand, (a) => -a);
   }
 }

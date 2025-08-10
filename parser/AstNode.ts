@@ -7,6 +7,7 @@ export interface INode {
   operator?: Operator; // The operator associated with the node.
   left?: INode; // The left child node.
   right?: INode; // The right child node.
+  operand?: INode; // The operand for unary operators.
   condition?: INode; // The condition for conditional nodes.
   isTrue?: INode; // The node representing the true branch of a conditional.
   isFalse?: INode; // The node representing the false branch of a conditional.
@@ -42,6 +43,12 @@ export interface INode {
    * @returns {boolean} True if the node is a node; otherwise, false.
    */
   isNode(): boolean;
+
+  /**
+   * Checks if the node is a unary operator.
+   * @returns {boolean} True if the node is a unary operator; otherwise, false.
+   */
+  isUnary(): boolean;
 }
 
 /**
@@ -51,6 +58,7 @@ export class AstNode implements INode {
   operator?: Operator; // The operator associated with this node.
   left?: INode; // The left child node.
   right?: INode; // The right child node.
+  operand?: INode; // The operand for unary operators.
   condition?: INode; // The condition for conditional nodes.
   isTrue?: INode; // The node representing the true branch of a conditional.
   isFalse?: INode; // The node representing the false branch of a conditional.
@@ -98,8 +106,13 @@ export class AstNode implements INode {
       !this.isValue() &&
       !this.isField() &&
       !this.isComparison() &&
-      !this.isConditional()
+      !this.isConditional() &&
+      !this.isUnary()
     );
+  }
+
+  isUnary(): boolean {
+    return !!this.operand;
   }
 
   /**
