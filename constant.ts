@@ -56,6 +56,8 @@ export const Operators = [
   ...ComparisonOperator,
   QuestionMarkOperator,
 ];
+export const UnaryOperator = ["u-", "u+"];
+export const Priority_5_Operator = [...UnaryOperator];
 export const AllOperators = [
   ...Operators,
   ColonOperator,

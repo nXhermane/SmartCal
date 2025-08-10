@@ -3,6 +3,7 @@ import {
   ArithmeticOperator,
   ColonOperator,
   ComparisonOperator,
+  ExponentialOperator,
   Operators,
   ParenthesisCloseOperator,
   ParenthesisOpenOperator,
@@ -10,8 +11,10 @@ import {
   Priority_2_Operator,
   Priority_3_Operator,
   Priority_4_Operator,
+  Priority_5_Operator,
   QuestionMarkOperator,
   REGEX,
+  UnaryOperator,
 } from "../constant";
 import { IncorrectSyntaxError, InvalidFormulaError } from "../errors";
 import { Operator } from "../types";
@@ -136,19 +139,29 @@ export class FormulaParser {
         tokens.join("")
       );
     }
-    const ternaryRegex = /[?:]/;
-    let expectingCondition = true;
-    tokens.forEach((token: string | number) => {
-      if (ternaryRegex.test(String(token))) {
-        if (expectingCondition && token === ColonOperator) {
-          throw new IncorrectSyntaxError(
-            "Ternary syntax error: found ':' before '?'",
-            tokens.join("")
-          );
+
+    let balance = 0;
+    let parenthesisDepth = 0;
+
+    for (const token of tokens) {
+      if (token === ParenthesisOpenOperator) {
+        parenthesisDepth++;
+      } else if (token === ParenthesisCloseOperator) {
+        parenthesisDepth--;
+      } else if (parenthesisDepth === 0) {
+        if (token === QuestionMarkOperator) {
+          balance++;
+        } else if (token === ColonOperator) {
+          balance--;
         }
-        expectingCondition = !expectingCondition;
       }
-    });
+      if (balance < 0) {
+        throw new IncorrectSyntaxError(
+          "Ternary syntax error: found ':' before '?'",
+          tokens.join("")
+        );
+      }
+    }
   }
   /**
    * Check if the provided tokens is valid formula
@@ -223,7 +236,9 @@ export class FormulaParser {
     if (this.isOperatorFirstAndParenthesis(token)) {
       const node = new AstNode();
       node.operator = token as Operator;
-      if (this.isArithmeticOperator(token)) {
+      if (this.isUnaryOperator(token)) {
+        node.operand = stack.pop();
+      } else if (this.isArithmeticOperator(token)) {
         node.right = stack.pop()!;
         node.left = stack.pop()!;
       } else if (this.isComparisonOperator(token)) {
@@ -255,11 +270,21 @@ export class FormulaParser {
   private infixToPostFix(tokens: (string | number)[]): (string | number)[] {
     const output: (string | number)[] = [];
     const operators: string[] = [];
-    tokens.forEach((token: string | number) => {
+    for (let i = 0; i < tokens.length; i++) {
+      const token = tokens[i];
       if (!this.isOperatorFirstAndParenthesis(token)) {
         output.push(token);
       } else {
-        const operatorAndParenthesis = String(token);
+        let operatorAndParenthesis = String(token);
+        if (
+          (operatorAndParenthesis === "+" || operatorAndParenthesis === "-") &&
+          (i === 0 ||
+            (Operators.includes(tokens[i - 1] as string)) ||
+            tokens[i - 1] === ParenthesisOpenOperator)
+        ) {
+          operatorAndParenthesis = "u" + operatorAndParenthesis;
+        }
+
         const priority = this.priority(operatorAndParenthesis);
         if (operatorAndParenthesis === ParenthesisOpenOperator) {
           operators.push(operatorAndParenthesis);
@@ -281,7 +306,7 @@ export class FormulaParser {
           ) {
             output.push(operators.pop()!);
           }
-        } else if (Operators.includes(operatorAndParenthesis)) {
+        } else if (Operators.includes(operatorAndParenthesis) || UnaryOperator.includes(operatorAndParenthesis)) {
           while (
             operators.length > 0 &&
             this.priority(operators[operators.length - 1]) >= priority
@@ -292,7 +317,7 @@ export class FormulaParser {
         } else {
         }
       }
-    });
+    }
     while (operators.length > 0) {
       output.push(operators.pop()!);
     }
@@ -314,6 +339,7 @@ export class FormulaParser {
     if (Priority_2_Operator.includes(operator)) return 2;
     if (Priority_3_Operator.includes(operator)) return 3;
     if (Priority_4_Operator.includes(operator)) return 4;
+    if (Priority_5_Operator.includes(operator)) return 5;
     return 0;
   }
   /**
@@ -368,6 +394,10 @@ export class FormulaParser {
 
   private isTernaryOperator(token: string | number): boolean {
     return QuestionMarkOperator === (token as string);
+  }
+
+  private isUnaryOperator(token: string | number): boolean {
+    return UnaryOperator.includes(token as string);
   }
   /**
    * Checks if the provided token is a valid value.

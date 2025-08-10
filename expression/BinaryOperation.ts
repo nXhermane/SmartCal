@@ -1,13 +1,9 @@
 import { Expression } from "./Expression";
 
 /**
- * Represents a binary operation on two expressions.
- * 
- * @template T The input type of the expression.
- * @template R The output type of the expressions.
- * @param {Expression<T, R>} left The left expression.
- * @param {Expression<T, R>} right The right expression.
- * @param {(a: R, b: R) => number} operator The operator function that takes two values of type R and returns a number.
+ * Represents a binary operation between two expressions, such as addition, subtraction, etc.
+ * @template T The type of the data object used for evaluation.
+ * @template R The type of the result of the sub-expressions.
  */
 export class BinaryOperation<T, R> extends Expression<T, number> {
   constructor(
