@@ -74,3 +74,4 @@ console.log(SmartCal(arroundHeight,{height: 80.4}))
 console.log(SmartCal(arroundHeight,{height: 80.9}))
 
 console.log(SmartCal("-5 + -2"))
+console.log(SmartCal("1 && 0"))
