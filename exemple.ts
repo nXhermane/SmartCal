@@ -1,8 +1,8 @@
 import { FormulaParser } from "./parser/FormulaParser";
 import { FormulaTokenizer } from "./tokenizer/FormulaTokenizer";
 import { FormulaInterpreter } from "./interpreter/FormulaInterpreter";
-import SmartCal,{isValidExpression,compile} from "./api"
-import {ExpressionBuilder} from "./builder/ExpressionBuilder"
+import SmartCal, { isValidExpression, compile } from "./api"
+import { ExpressionBuilder } from "./builder/ExpressionBuilder"
 import { ConditionResult } from "./constant";
 const data: Data = {
    age: 20,
@@ -32,10 +32,10 @@ const tokens = fTokenizer.execute(`3==5`)
 const ast = fParser.execute(tokens)
 const result = fInterpreter.execute(ast, {})
 console.log(result)
-console.log(SmartCal("10",{yello:2}))
+console.log(SmartCal("10", { yello: 2 }))
 // Failure : "4 ^ 2 ^ 6"
 
-console.log(ExpressionBuilder.create().add(2,2).str())
+console.log(ExpressionBuilder.create().add(2, 2).str())
 console.log(fTokenizer.execute('1+2'))
 const data1 = { score: 85 };
 
@@ -67,3 +67,10 @@ const data2 = {
 // Evaluate nested formulas
 console.log(SmartCal("f_final", data2)); // 450 (500 * 0.9)
 console.log(SmartCal("'A'"))
+const arroundHeight = `(height - (height % 1)) + ((height % 1)<=0.2 ? 0:((height %1)>=0.8?1:0.5))`
+console.log(isValidExpression(arroundHeight))
+console.log(SmartCal(arroundHeight,{height: 80.1}))
+console.log(SmartCal(arroundHeight,{height: 80.4}))
+console.log(SmartCal(arroundHeight,{height: 80.9}))
+
+console.log(SmartCal("-5 + -2"))
