@@ -1,9 +1,11 @@
 import { Expression } from "./Expression";
 
 /**
- * Represents a literal value (a number or a string) in an expression.
- * @template T The type of the data object used for evaluation (not used in this class).
- * @template R The type of the literal value.
+ * Represents a literal value expression.
+ * 
+ * @template T The input type of the expression.
+ * @template R The output type of the expression, defaulting to number.
+ * @param {R} _value The literal value to be returned when executed.
  */
 export class LiteralValue<T, R = number> extends Expression<T, R> {
   constructor(private _value: R) {

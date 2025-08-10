@@ -1,9 +1,13 @@
 import { Expression } from "./Expression";
 
 /**
- * Represents a ternary conditional expression (condition ? value_if_true : value_if_false).
- * @template T The type of the data object used for evaluation.
- * @template R The type of the result of the true/false sub-expressions.
+ * Represents a conditional expression that returns values based on a condition.
+ * 
+ * @template T The input type of the expression.
+ * @template R The output type of the conditional expression.
+ * @param {Expression<T, number>} condition The expression that determines the condition to evaluate.
+ * @param {Expression<T, R>} isTrue The expression to execute if the condition is true.
+ * @param {Expression<T, R>} isFalse The expression to execute if the condition is false.
  */
 export class ConditionalExpression<T, R> extends Expression<T, R> {
    constructor(

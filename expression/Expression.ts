@@ -1,14 +1,13 @@
 /**
- * Represents an abstract expression that can be evaluated.
- * This is the base class for all expression types.
- * @template T The type of the data object used for evaluation.
- * @template R The type of the result of the evaluation.
+ * Represents an abstract expression that defines an interface for evaluating expressions.
+ * @template T The input type for the expression.
+ * @template R The type of result produced by the expression.
  */
 export abstract class Expression<T, R> {
   /**
-   * Evaluates the expression with the given data.
-   * @param {T} obj The data object to use for evaluation.
-   * @returns {R} The result of the evaluation.
+   * Evaluates the expression based on the given object.
+   * @param {T} obj The object on which the expression will be evaluated.
+   * @returns {R} The result of evaluating the expression.
    */
   abstract execute(obj: T): R;
 }
