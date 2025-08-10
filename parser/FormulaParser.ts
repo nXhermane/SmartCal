@@ -10,6 +10,9 @@ import {
   Priority_2_Operator,
   Priority_3_Operator,
   Priority_4_Operator,
+  Priority_5_Operator,
+  Priority_6_Operator,
+  Priority_7_Operator,
   QuestionMarkOperator,
   REGEX,
 } from "../constant";
@@ -314,6 +317,9 @@ export class FormulaParser {
     if (Priority_2_Operator.includes(operator)) return 2;
     if (Priority_3_Operator.includes(operator)) return 3;
     if (Priority_4_Operator.includes(operator)) return 4;
+    if (Priority_5_Operator.includes(operator)) return 5;
+    if (Priority_6_Operator.includes(operator)) return 6;
+    if (Priority_7_Operator.includes(operator)) return 7;
     return 0;
   }
   /**

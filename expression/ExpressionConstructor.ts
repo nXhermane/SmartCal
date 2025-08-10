@@ -3,6 +3,8 @@ import { Expression } from "./Expression";
 import { FieldReference } from "./FieldReference";
 import { BinaryOperation } from "./BinaryOperation";
 import { ConditionalExpression } from "./ConditionalExpression";
+import { AndExpression } from "./AndExpression";
+import { OrExpression } from "./OrExpression";
 
 export class ExpressionConstructor {
   /**
@@ -90,7 +92,7 @@ export class ExpressionConstructor {
     right: Expression<T, number>
   ): Expression<T, number> {
     return new BinaryOperation<T, number>(left, right, (a, b) => {
-      if (b === 0) throw new Error("Division by zero");
+      if (b === 0) throw new Error("Division by zero is not allowed.");
       return a / b;
     });
   }
@@ -198,9 +200,7 @@ export class ExpressionConstructor {
     left: Expression<T, R>,
     right: Expression<T, R>
   ): Expression<T, number> {
-    return new BinaryOperation<T, R>(left, right, (a: R, b: R) =>
-      Number(a || b)
-    );
+    return new OrExpression<T, R>(left, right);
   }
 
   /**
@@ -216,9 +216,7 @@ export class ExpressionConstructor {
     left: Expression<T, R>,
     right: Expression<T, R>
   ): Expression<T, number> {
-    return new BinaryOperation<T, R>(left, right, (a: R, b: R) =>
-      Number(a && b)
-    );
+    return new AndExpression<T, R>(left, right);
   }
   /**
    * Creates a power (exponentiation) expression between two expressions.

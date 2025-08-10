@@ -53,6 +53,64 @@ describe("FormulaInterpreter", () => {
   });
 
   test("should throw an error for undefined variables", () => {
-    expect(() => evaluate("f_x + f_z")).toThrow("The variable f_z not defined.");
+    expect(() => evaluate("f_x + f_z", {f_x: 1})).toThrow("The variable f_z not defined.");
+  });
+
+  test("should handle nested formula variables", () => {
+    const data = {
+      basePrice: 100,
+      quantity: 5,
+      f_subtotal: "basePrice * quantity",
+      f_discountRate: "f_subtotal > 400 ? 0.1 : 0.05",
+      f_finalPrice: "f_subtotal * (1 - f_discountRate)"
+    };
+    expect(evaluate("f_finalPrice", data)).toBe(450); // 500 * (1 - 0.1)
+  });
+
+  test("should handle complex nested ternary expressions", () => {
+    const data = { score: 75 };
+    const expression = "score >= 90 ? 'A' : (score >= 80 ? 'B' : (score >= 70 ? 'C' : 'D'))";
+    expect(evaluate(expression, data)).toBe('C');
+  });
+
+  test("should handle logical AND and OR operators", () => {
+    expect(evaluate("1 && 1")).toBe(1);
+    expect(evaluate("1 && 0")).toBe(0);
+    expect(evaluate("0 || 1")).toBe(1);
+    expect(evaluate("0 || 0")).toBe(0);
+    expect(evaluate("(5 > 3) && (2 < 4)")).toBe(1);
+    expect(evaluate("(5 > 3) || (2 > 4)")).toBe(1);
+  });
+
+  test("should handle equality and inequality operators", () => {
+    expect(evaluate("5 == 5")).toBe(1);
+    expect(evaluate("5 == 4")).toBe(0);
+    expect(evaluate("'hello' == 'hello'")).toBe(1);
+    expect(evaluate("'hello' == 'world'")).toBe(0);
+    expect(evaluate("5 != 4")).toBe(1);
+    expect(evaluate("5 != 5")).toBe(0);
+  });
+
+  test("should handle >= and <= operators", () => {
+    expect(evaluate("5 >= 5")).toBe(1);
+    expect(evaluate("5 >= 4")).toBe(1);
+    expect(evaluate("4 >= 5")).toBe(0);
+    expect(evaluate("5 <= 5")).toBe(1);
+    expect(evaluate("4 <= 5")).toBe(1);
+    expect(evaluate("5 <= 4")).toBe(0);
+  });
+
+  test("should throw an error for division by zero", () => {
+    expect(() => evaluate("10 / 0")).toThrow("Division by zero is not allowed.");
+  });
+
+  test("should handle modulo operator", () => {
+    expect(evaluate("10 % 3")).toBe(1);
+    expect(evaluate("10 % 2")).toBe(0);
+  });
+
+  test("should handle exponential operator", () => {
+    expect(evaluate("2 ^ 3")).toBe(8);
+    expect(evaluate("5 ^ 0")).toBe(1);
   });
 });

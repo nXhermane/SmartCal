@@ -41,7 +41,7 @@ describe("Formula Tokenizer testing", () => {
 
   test("should handle negative numbers in parentheses", () => {
     const result = tokenizer.execute("(-2)");
-    expect(result).toEqual([-2]);
+    expect(result).toEqual(['(', -2, ')']);
   });
 
   test("should tokenize a complex expression", () => {

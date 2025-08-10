@@ -33,55 +33,35 @@ export class FormulaTokenizer {
    */
   private filterTokens(tokens: string[]): (string | number)[] {
     const filteredTokens: (string | number)[] = [];
-    let expectedClosedParenthesis = false;
-    tokens.forEach((token: string) => {
-      const regex = /^\d+(\.\d+)?$/;
-      const negativeNumberRegex = /-\d+/;
-      const lastFilteredToken = filteredTokens[filteredTokens.length - 1];
-      if (regex.test(token)) {
-        const firstPop = filteredTokens.pop();
-        const secondPop = filteredTokens.pop();
+    for (let i = 0; i < tokens.length; i++) {
+      const token = tokens[i];
 
-        if (firstPop !== undefined) {
-          const isSign = SignOperators.includes(firstPop as string);
-          const isPrecededByOperator =
-            secondPop !== undefined &&
-            typeof secondPop === "string" &&
-            Operators.includes(secondPop);
-          const isPrecededByParen = secondPop === ParenthesisOpenOperator;
-          const isAtStart = secondPop === undefined;
+      if (token === ParenthesisOpenOperator &&
+          tokens[i + 2] === ParenthesisCloseOperator &&
+          !isNaN(Number(tokens[i + 1]))) {
+        filteredTokens.push(Number(tokens[i + 1]));
+        i += 2;
+        continue;
+      }
 
-          if (isSign && isPrecededByParen) {
-            // Special case for `(-2)`
-            filteredTokens.push(Number(firstPop + token));
-            expectedClosedParenthesis = true;
-          } else if (isSign && (isPrecededByOperator || isAtStart)) {
-            // It's a signed number
-            if (secondPop !== undefined) {
-              filteredTokens.push(secondPop);
-            }
-            filteredTokens.push(Number(firstPop + token));
-          } else {
-            // Not a signed number, push everything back
-            if (secondPop !== undefined) {
-              filteredTokens.push(secondPop);
-            }
-            filteredTokens.push(firstPop, Number(token));
-          }
+      const prevToken = filteredTokens.length > 0 ? filteredTokens[filteredTokens.length - 1] : null;
+
+      if ((token === '+' || token === '-') &&
+          (prevToken === null || prevToken === ParenthesisOpenOperator || (typeof prevToken === 'string' && Operators.includes(prevToken as string)))) {
+        const nextToken = tokens[i + 1];
+        if (nextToken && !isNaN(Number(nextToken))) {
+          const number = Number(token + nextToken);
+          filteredTokens.push(number);
+          i++;
         } else {
-          // No token before, just a number
-          filteredTokens.push(Number(token));
+          filteredTokens.push(token);
         }
-      } else if (
-        negativeNumberRegex.test(lastFilteredToken as string) &&
-        token === ParenthesisCloseOperator &&
-        expectedClosedParenthesis
-      ) {
-        expectedClosedParenthesis = false;
+      } else if (!isNaN(Number(token))) {
+        filteredTokens.push(Number(token));
       } else {
         filteredTokens.push(token);
       }
-    });
+    }
     return filteredTokens;
   }
 

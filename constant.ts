@@ -35,13 +35,14 @@ export const BackslashOperator = "\\";
 export const ComparisonOperator = [
   GreaterThanOperator,
   LessThanOperator,
-  LogicalOrOperator,
-  LogicalAndOperator,
   GreaterThanOrEqualOperator,
   LessThanOrEqualOperator,
   EqualOperator,
   NotEqualOperator,
 ];
+
+export const LogicalOperator = [LogicalAndOperator, LogicalOrOperator];
+
 export const ArithmeticOperator = [
   AdditionOperator,
   SubtractionOperator,
@@ -54,6 +55,7 @@ export const ArithmeticOperator = [
 export const Operators = [
   ...ArithmeticOperator,
   ...ComparisonOperator,
+  ...LogicalOperator,
   QuestionMarkOperator,
 ];
 export const AllOperators = [
@@ -62,14 +64,20 @@ export const AllOperators = [
   ParenthesisCloseOperator,
   ParenthesisOpenOperator,
 ];
-export const Priority_1_Operator = [AdditionOperator, SubtractionOperator];
-export const Priority_2_Operator = [
+
+export const Priority_1_Operator = [LogicalOrOperator, QuestionMarkOperator];
+export const Priority_2_Operator = [LogicalAndOperator];
+export const Priority_3_Operator = [EqualOperator, NotEqualOperator];
+export const Priority_4_Operator = [
+  GreaterThanOperator,
+  LessThanOperator,
+  GreaterThanOrEqualOperator,
+  LessThanOrEqualOperator,
+];
+export const Priority_5_Operator = [AdditionOperator, SubtractionOperator];
+export const Priority_6_Operator = [
   DivisionOperator,
   MultiplicationOperator,
   ModuloOperator,
 ];
-export const Priority_3_Operator = [ExponentialOperator];
-export const Priority_4_Operator = [
-  ...ComparisonOperator,
-  QuestionMarkOperator,
-];
+export const Priority_7_Operator = [ExponentialOperator];
