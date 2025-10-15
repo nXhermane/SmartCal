@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
   <meta charset='utf-8'>
-  <title>smartcal 1.0.11 | Documentation</title>
-  <meta name='description' content='SmartCal is a lightweight and powerful library for evaluating complex mathematical expressions dynamically. It supports tokenization, parsing, and interpreting mathematical formulas seamlessly, offering flexibility to integrate custom data objects for dynamic calculations. Ideal for developers needing a robust calculation engine in JavaScript/TypeScript projects.'>
+  <title>smartcal 1.0.12 | Documentation</title>
+  <meta name='description' content='A powerful, lightweight TypeScript library for dynamic mathematical expression evaluation with support for variables, formulas, Unicode strings, and compiled expressions for high performance.'>
   <meta name='viewport' content='width=device-width,initial-scale=1'>
   <link href='assets/bass.css' rel='stylesheet'>
   <link href='assets/style.css' rel='stylesheet'>
@@ -15,7 +15,7 @@
       <div id='split-left' class='overflow-auto fs0 height-viewport-100'>
         <div class='py1 px2'>
           <h3 class='mb0 no-anchor'>smartcal</h3>
-          <div class='mb1'><code>1.0.11</code></div>
+          <div class='mb1'><code>1.0.12</code></div>
           <input
             placeholder='Filter'
             id='filter-input'
@@ -165,6 +165,36 @@
               
                 
                 <li><a
+                  href='#datatype'
+                  class="">
+                  DataType
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#operatorvalue'
+                  class="">
+                  OperatorValue
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#operator'
+                  class="">
+                  Operator
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
                   href='#binaryoperation'
                   class=" toggle-sibling">
                   BinaryOperation
@@ -206,6 +236,12 @@
                       <li class='h5'><span>Instance members</span></li>
                       
                       <li><a
+                        href='#compiledexpressiontype'
+                        class='regular pre-open'>
+                        #type
+                      </a></li>
+                      
+                      <li><a
                         href='#compiledexpressionevaluate'
                         class='regular pre-open'>
                         #evaluate
@@ -240,6 +276,12 @@
                       <li class='h5'><span>Instance members</span></li>
                       
                       <li><a
+                        href='#compiledformulaexpressiontype'
+                        class='regular pre-open'>
+                        #type
+                      </a></li>
+                      
+                      <li><a
                         href='#compiledformulaexpressionevaluate'
                         class='regular pre-open'>
                         #evaluate
@@ -256,16 +298,6 @@
                   
                   
                 </div>
-                
-                </li>
-              
-                
-                <li><a
-                  href='#operator'
-                  class="">
-                  Operator
-                  
-                </a>
                 
                 </li>
               
@@ -609,6 +641,360 @@
               
                 
                 <li><a
+                  href='#regex'
+                  class=" toggle-sibling">
+                  REGEX
+                  <span class='icon'>▸</span>
+                </a>
+                
+                <div class='toggle-target display-none'>
+                  
+                  <ul class='list-reset py1-ul pl1'>
+                    <li class='h5'><span>Static members</span></li>
+                    
+                      <li><a
+                        href='#regexformulaoperatorg'
+                        class='regular pre-open'>
+                        .formulaOperatorG
+                      </a></li>
+                    
+                      <li><a
+                        href='#regexformulaoperator'
+                        class='regular pre-open'>
+                        .formulaOperator
+                      </a></li>
+                    
+                      <li><a
+                        href='#regexformulafieldname'
+                        class='regular pre-open'>
+                        .formulaFieldName
+                      </a></li>
+                    
+                    </ul>
+                  
+                  
+                  
+                  
+                </div>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#conditionresult'
+                  class=" toggle-sibling">
+                  ConditionResult
+                  <span class='icon'>▸</span>
+                </a>
+                
+                <div class='toggle-target display-none'>
+                  
+                  <ul class='list-reset py1-ul pl1'>
+                    <li class='h5'><span>Static members</span></li>
+                    
+                      <li><a
+                        href='#conditionresulttrue'
+                        class='regular pre-open'>
+                        .True
+                      </a></li>
+                    
+                      <li><a
+                        href='#conditionresultfalse'
+                        class='regular pre-open'>
+                        .False
+                      </a></li>
+                    
+                    </ul>
+                  
+                  
+                  
+                  
+                </div>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#additionoperator'
+                  class="">
+                  AdditionOperator
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#subtractionoperator'
+                  class="">
+                  SubtractionOperator
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#divisionoperator'
+                  class="">
+                  DivisionOperator
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#multiplicationoperator'
+                  class="">
+                  MultiplicationOperator
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#exponentialoperator'
+                  class="">
+                  ExponentialOperator
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#modulooperator'
+                  class="">
+                  ModuloOperator
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#logicalandoperator'
+                  class="">
+                  LogicalAndOperator
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#logicaloroperator'
+                  class="">
+                  LogicalOrOperator
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#greaterthanoperator'
+                  class="">
+                  GreaterThanOperator
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#lessthanoperator'
+                  class="">
+                  LessThanOperator
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#greaterthanorequaloperator'
+                  class="">
+                  GreaterThanOrEqualOperator
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#lessthanorequaloperator'
+                  class="">
+                  LessThanOrEqualOperator
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#equaloperator'
+                  class="">
+                  EqualOperator
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#notequaloperator'
+                  class="">
+                  NotEqualOperator
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#assignmentoperator'
+                  class="">
+                  AssignmentOperator
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#parenthesisopenoperator'
+                  class="">
+                  ParenthesisOpenOperator
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#parenthesiscloseoperator'
+                  class="">
+                  ParenthesisCloseOperator
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#colonoperator'
+                  class="">
+                  ColonOperator
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#questionmarkoperator'
+                  class="">
+                  QuestionMarkOperator
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#backslashoperator'
+                  class="">
+                  BackslashOperator
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#comparisonoperator'
+                  class="">
+                  ComparisonOperator
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#arithmeticoperator'
+                  class="">
+                  ArithmeticOperator
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#operators'
+                  class="">
+                  Operators
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#alloperators'
+                  class="">
+                  AllOperators
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#priority_1_operator'
+                  class="">
+                  Priority_1_Operator
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#priority_2_operator'
+                  class="">
+                  Priority_2_Operator
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#priority_3_operator'
+                  class="">
+                  Priority_3_Operator
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#priority_4_operator'
+                  class="">
+                  Priority_4_Operator
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
                   href='#literalvalue-1'
                   class=" toggle-sibling">
                   LiteralValue
@@ -658,7 +1044,9 @@
   </div>
   
 
-  <p>Compiles a formula expression string into a CompiledExpression object.</p>
+  <p>Compiles a formula expression string into a reusable CompiledExpression object.</p>
+<p>Compilation pre-parses the expression into an AST (Abstract Syntax Tree) for improved
+performance when evaluating the same expression multiple times with different data.</p>
 
     <div class='pre p1 fill-light mt0'>compile(expression: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>): <a href="#compiledexpression">CompiledExpression</a></div>
   
@@ -678,7 +1066,8 @@
         <div class='space-bottom0'>
           <div>
             <span class='code bold'>expression</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
-	    The formula expression to compile
+	    The formula expression to compile. Must be a valid expression
+that can be parsed by the formula engine.
 
           </div>
           
@@ -693,7 +1082,7 @@
     
       <div class='py1 quiet mt1 prose-big'>Returns</div>
       <code><a href="#compiledexpression">CompiledExpression</a></code>:
-        A compiled expression that can be evaluated
+        A compiled expression object that can be evaluated multiple times
 
       
     
@@ -701,14 +1090,34 @@
 
   
 
+  
+    <div class='py1 quiet mt1 prose-big'>Throws</div>
+    <ul>
+      
+        <li>FormulaInterpreterError: When expression syntax is invalid
+</li>
+      
+        <li>IncorrectSyntax: When expression has incorrect syntax
+</li>
+      
+    </ul>
   
 
   
     <div class='py1 quiet mt1 prose-big'>Example</div>
     
       
-      <pre class='p1 overflow-auto round fill-light'><span class="hljs-keyword">const</span> expr = <span class="hljs-title function_">compile</span>(<span class="hljs-string">&quot;age+3&quot;</span>);
-<span class="hljs-keyword">const</span> result = expr.<span class="hljs-title function_">evaluate</span>({<span class="hljs-attr">age</span>:<span class="hljs-number">18</span>});</pre>
+      <pre class='p1 overflow-auto round fill-light'><span class="hljs-string">``</span><span class="hljs-string">`typescript
+// Compile once, evaluate multiple times
+const priceCalculator = compile(&quot;quantity * unitPrice * (1 - discount)&quot;);
+
+// Use with different data
+priceCalculator.evaluate({ quantity: 5, unitPrice: 10, discount: 0.1 }); // 45
+priceCalculator.evaluate({ quantity: 3, unitPrice: 15, discount: 0.2 }); // 36
+
+// Get original expression
+console.log(priceCalculator.toString()); // &quot;quantity * unitPrice * (1 - discount)&quot;
+`</span><span class="hljs-string">``</span></pre>
     
   
 
@@ -737,7 +1146,9 @@
   </div>
   
 
-  <p>Verify if the given expression is valid formula</p>
+  <p>Validates whether a given expression is a valid formula that can be parsed and evaluated.</p>
+<p>This function performs syntax checking without executing the expression, making it useful
+for input validation before evaluation.</p>
 
     <div class='pre p1 fill-light mt0'>isValidExpression(expression: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></div>
   
@@ -757,7 +1168,7 @@
         <div class='space-bottom0'>
           <div>
             <span class='code bold'>expression</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
-	    expression to evaluate
+	    The expression string to validate
 
           </div>
           
@@ -772,7 +1183,7 @@
     
       <div class='py1 quiet mt1 prose-big'>Returns</div>
       <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></code>:
-        true if the expression is valid
+        true if the expression is syntactically valid, false otherwise
 
       
     
@@ -782,6 +1193,17 @@
 
   
 
+  
+    <div class='py1 quiet mt1 prose-big'>Example</div>
+    
+      
+      <pre class='p1 overflow-auto round fill-light'><span class="hljs-string">``</span><span class="hljs-string">`typescript
+isValidExpression(&quot;2 + 3 * 4&quot;); // true
+isValidExpression(&quot;x &gt; 10 ? &#x27;high&#x27; : &#x27;low&#x27;&quot;); // true
+isValidExpression(&quot;2 +&quot;); // false - incomplete expression
+isValidExpression(&quot;(a + b * c&quot;); // false - unmatched parentheses
+`</span><span class="hljs-string">``</span></pre>
+    
   
 
   
@@ -1199,7 +1621,7 @@ and filters the tokens to produce a final result.</p>
 <p>This function parses and interprets a mathematical formula represented as a string,
 applying dynamic values from a given object to resolve variables or conditions within the expression.</p>
 
-    <div class='pre p1 fill-light mt0'>new SmartCal(expression: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, obj: T): (<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a> | <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a> | <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;any>)</div>
+    <div class='pre p1 fill-light mt0'>new SmartCal(expression: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, obj: T): (<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a> | <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</div>
   
   
 
@@ -1221,6 +1643,8 @@ applying dynamic values from a given object to resolve variables or conditions w
 Variables in the expression should correspond to keys in the 
 <code>obj</code>
  parameter.
+Supports arithmetic (+, -, *, /, ^, %), comparison (>, &#x3C;, >=, &#x3C;=, ==, !=),
+logical (&#x26;&#x26;, ||), and ternary (? :) operators.
 
           </div>
           
@@ -1230,6 +1654,7 @@ Variables in the expression should correspond to keys in the
           <div>
             <span class='code bold'>obj</span> <code class='quiet'>(T)</code>
 	    An object containing the values of the variables referenced in the expression.
+Can include nested formula variables prefixed with 'f_' and regular data variables.
 
           </div>
           
@@ -1243,8 +1668,8 @@ Variables in the expression should correspond to keys in the
   
     
       <div class='py1 quiet mt1 prose-big'>Returns</div>
-      <code>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a> | <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a> | <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;any>)</code>:
-        The result of the evaluated expression, which can be a number, a string, or an array depending on the expression's logic.
+      <code>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a> | <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>:
+        The result of the evaluated expression, which can be a number or string.
 
       
     
@@ -1253,7 +1678,41 @@ Variables in the expression should correspond to keys in the
   
 
   
+    <div class='py1 quiet mt1 prose-big'>Throws</div>
+    <ul>
+      
+        <li>FormulaInterpreterError: When expression syntax is invalid or variables are undefined
+</li>
+      
+        <li>IncorrectSyntax: When expression has incorrect syntax
+</li>
+      
+        <li>InvalidFormulaError: When formula is malformed
+</li>
+      
+    </ul>
+  
 
+  
+    <div class='py1 quiet mt1 prose-big'>Example</div>
+    
+      
+      <pre class='p1 overflow-auto round fill-light'><span class="hljs-string">``</span><span class="hljs-string">`typescript
+// Basic arithmetic
+SmartCal(&quot;2 + 3 * 4&quot;); // 14
+
+// With variables
+SmartCal(&quot;age + 5&quot;, { age: 25 }); // 30
+
+// With formula variables
+SmartCal(&quot;f_total&quot;, {
+  f_subtotal: &quot;price * quantity&quot;,
+  f_total: &quot;f_subtotal * 1.2&quot;,
+  price: 10,
+  quantity: 5
+}); // 60
+`</span><span class="hljs-string">``</span></pre>
+    
   
 
   
@@ -1491,6 +1950,179 @@ variable data and constructs appropriate expression objects for processing.</p>
   
   <div class='clearfix'>
     
+    <h3 class='fl m0' id='datatype'>
+      DataType
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Represents the data type that can be passed to expression evaluation functions.
+Keys are variable names, and values can be numbers, strings, or compiled expressions.</p>
+
+    <div class='pre p1 fill-light mt0'>DataType</div>
+  
+    <p>
+      Type:
+      {: (<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a> | <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a> | <a href="#compiledexpression">CompiledExpression</a>)}
+    </p>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Properties</div>
+    <div>
+      
+        <div class='space-bottom0'>
+          <span class='code bold'></span> <code class='quiet'>(any)</code>
+          
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='operatorvalue'>
+      OperatorValue
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Array of all supported operators in expressions.</p>
+
+    <div class='pre p1 fill-light mt0'>OperatorValue</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='operator'>
+      Operator
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Represents the supported operators in the expression.
+Includes arithmetic, comparison, logical, and ternary operators.</p>
+
+    <div class='pre p1 fill-light mt0'>Operator</div>
+  
+    <p>
+      Type:
+      any
+    </p>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
     <h3 class='fl m0' id='binaryoperation'>
       BinaryOperation
     </h3>
@@ -1681,6 +2313,8 @@ variable data and constructs appropriate expression objects for processing.</p>
   
 
   <p>Represents a compiled formula expression that can be evaluated with data.</p>
+<p>This interface defines the contract for compiled expressions that have been pre-parsed
+into an AST for efficient repeated evaluation.</p>
 
     <div class='pre p1 fill-light mt0'>CompiledExpression</div>
   
@@ -1711,6 +2345,60 @@ variable data and constructs appropriate expression objects for processing.</p>
     <div class='py1 quiet mt1 prose-big'>Instance Members</div>
     <div class="clearfix">
   
+    <div class='border-bottom' id='compiledexpressiontype'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>type</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Type identifier for the compiled expression</p>
+
+    <div class='pre p1 fill-light mt0'>type</div>
+  
+    <p>
+      Type:
+      <code>"CompiledExpression"</code>
+    </p>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
     <div class='border-bottom' id='compiledexpressionevaluate'>
       <div class="clearfix small pointer toggle-sibling">
         <div class="py1 contain">
@@ -1723,7 +2411,7 @@ variable data and constructs appropriate expression objects for processing.</p>
 
   
 
-  <p>Evaluates the expression with the provided data.</p>
+  <p>Evaluates the compiled expression with the provided data.</p>
 
     <div class='pre p1 fill-light mt0'>evaluate(data: T): (<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a> | <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>)</div>
   
@@ -1743,7 +2431,8 @@ variable data and constructs appropriate expression objects for processing.</p>
         <div class='space-bottom0'>
           <div>
             <span class='code bold'>data</span> <code class='quiet'>(T)</code>
-	    The data object to evaluate the expression against
+	    The data object to evaluate the expression against.
+Should contain all variables referenced in the original expression.
 
           </div>
           
@@ -1758,7 +2447,7 @@ variable data and constructs appropriate expression objects for processing.</p>
     
       <div class='py1 quiet mt1 prose-big'>Returns</div>
       <code>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a> | <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>)</code>:
-        The result of the evaluation
+        The result of the evaluation, either a number or string
 
       
     
@@ -1767,7 +2456,24 @@ variable data and constructs appropriate expression objects for processing.</p>
   
 
   
+    <div class='py1 quiet mt1 prose-big'>Throws</div>
+    <ul>
+      
+        <li>FormulaVariableNotFoundError: When required variables are missing from data
+</li>
+      
+    </ul>
+  
 
+  
+    <div class='py1 quiet mt1 prose-big'>Example</div>
+    
+      
+      <pre class='p1 overflow-auto round fill-light'><span class="hljs-string">``</span><span class="hljs-string">`typescript
+const expr = compile(&quot;price * quantity&quot;);
+expr.evaluate({ price: 10, quantity: 5 }); // 50
+`</span><span class="hljs-string">``</span></pre>
+    
   
 
   
@@ -1794,7 +2500,7 @@ variable data and constructs appropriate expression objects for processing.</p>
 
   
 
-  <p>Returns the string representation of the expression.</p>
+  <p>Returns the string representation of the original expression.</p>
 
     <div class='pre p1 fill-light mt0'>toString(): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></div>
   
@@ -1815,7 +2521,7 @@ variable data and constructs appropriate expression objects for processing.</p>
     
       <div class='py1 quiet mt1 prose-big'>Returns</div>
       <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></code>:
-        The original expression string
+        The original expression string that was compiled
 
       
     
@@ -1825,6 +2531,15 @@ variable data and constructs appropriate expression objects for processing.</p>
 
   
 
+  
+    <div class='py1 quiet mt1 prose-big'>Example</div>
+    
+      
+      <pre class='p1 overflow-auto round fill-light'><span class="hljs-string">``</span><span class="hljs-string">`typescript
+const expr = compile(&quot;x + y * 2&quot;);
+console.log(expr.toString()); // &quot;x + y * 2&quot;
+`</span><span class="hljs-string">``</span></pre>
+    
   
 
   
@@ -1865,6 +2580,8 @@ variable data and constructs appropriate expression objects for processing.</p>
   
 
   <p>Implementation of the CompiledExpression interface for formula expressions.</p>
+<p>This class provides a concrete implementation that compiles a formula expression
+once and allows efficient repeated evaluation with different data sets.</p>
 
     <div class='pre p1 fill-light mt0'>new CompiledFormulaExpression(undefined: any, expression: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</div>
   
@@ -1892,7 +2609,8 @@ variable data and constructs appropriate expression objects for processing.</p>
         <div class='space-bottom0'>
           <div>
             <span class='code bold'>expression</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
-	    The formula expression to compile
+	    The formula expression to compile.
+Must be a valid expression that can be parsed by the formula engine.
 
           </div>
           
@@ -1917,6 +2635,55 @@ variable data and constructs appropriate expression objects for processing.</p>
     <div class='py1 quiet mt1 prose-big'>Instance Members</div>
     <div class="clearfix">
   
+    <div class='border-bottom' id='compiledformulaexpressiontype'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>type</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Type identifier for the compiled expression</p>
+
+    <div class='pre p1 fill-light mt0'>type</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
     <div class='border-bottom' id='compiledformulaexpressionevaluate'>
       <div class="clearfix small pointer toggle-sibling">
         <div class="py1 contain">
@@ -1929,7 +2696,7 @@ variable data and constructs appropriate expression objects for processing.</p>
 
   
 
-  <p>Evaluates the expression with the provided data.</p>
+  <p>Evaluates the compiled expression with the provided data.</p>
 
     <div class='pre p1 fill-light mt0'>evaluate(data: T): (<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a> | <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>)</div>
   
@@ -1949,7 +2716,8 @@ variable data and constructs appropriate expression objects for processing.</p>
         <div class='space-bottom0'>
           <div>
             <span class='code bold'>data</span> <code class='quiet'>(T)</code>
-	    The data object to evaluate the expression against
+	    The data object to evaluate the expression against.
+Should contain all variables referenced in the expression.
 
           </div>
           
@@ -1973,7 +2741,24 @@ variable data and constructs appropriate expression objects for processing.</p>
   
 
   
+    <div class='py1 quiet mt1 prose-big'>Throws</div>
+    <ul>
+      
+        <li>FormulaVariableNotFoundError: When required variables are missing from data
+</li>
+      
+    </ul>
+  
 
+  
+    <div class='py1 quiet mt1 prose-big'>Example</div>
+    
+      
+      <pre class='p1 overflow-auto round fill-light'><span class="hljs-string">``</span><span class="hljs-string">`typescript
+const expr = new CompiledFormulaExpression(&quot;price * quantity&quot;);
+expr.evaluate({ price: 10, quantity: 5 }); // 50
+`</span><span class="hljs-string">``</span></pre>
+    
   
 
   
@@ -2000,7 +2785,7 @@ variable data and constructs appropriate expression objects for processing.</p>
 
   
 
-  <p>Returns the string representation of the expression.</p>
+  <p>Returns the string representation of the original expression.</p>
 
     <div class='pre p1 fill-light mt0'>toString(): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></div>
   
@@ -2021,7 +2806,7 @@ variable data and constructs appropriate expression objects for processing.</p>
     
       <div class='py1 quiet mt1 prose-big'>Returns</div>
       <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></code>:
-        The original expression string
+        The original expression string that was compiled
 
       
     
@@ -2046,61 +2831,6 @@ variable data and constructs appropriate expression objects for processing.</p>
     </div>
   
 </div>
-
-  
-
-  
-
-  
-</section>
-
-          
-        
-          
-          <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-  <div class='clearfix'>
-    
-    <h3 class='fl m0' id='operator'>
-      Operator
-    </h3>
-    
-    
-  </div>
-  
-
-  <p>Represents the supported operators in the expression.</p>
-
-    <div class='pre p1 fill-light mt0'>Operator</div>
-  
-    <p>
-      Type:
-      any
-    </p>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
 
   
 
@@ -4499,6 +5229,1864 @@ for the execution of expressions and the interpretation of formulas.</p>
     </div>
   
 </div>
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='regex'>
+      REGEX
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Regular expressions used for parsing formula expressions.</p>
+
+    <div class='pre p1 fill-light mt0'>REGEX</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Static Members</div>
+    <div class="clearfix">
+  
+    <div class='border-bottom' id='regexformulaoperatorg'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>formulaOperatorG</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Global regex for matching operators in formulas</p>
+
+    <div class='pre p1 fill-light mt0'>formulaOperatorG</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='regexformulaoperator'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>formulaOperator</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Single match regex for operators</p>
+
+    <div class='pre p1 fill-light mt0'>formulaOperator</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='regexformulafieldname'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>formulaFieldName</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Regex to identify formula field names (prefixed with 'f_')</p>
+
+    <div class='pre p1 fill-light mt0'>formulaFieldName</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+</div>
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='conditionresult'>
+      ConditionResult
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Enumeration for boolean condition results in expressions.
+Used for ternary operations and logical evaluations.</p>
+
+    <div class='pre p1 fill-light mt0'>ConditionResult</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Static Members</div>
+    <div class="clearfix">
+  
+    <div class='border-bottom' id='conditionresulttrue'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>True</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Represents true (evaluates to 1 in numeric context)</p>
+
+    <div class='pre p1 fill-light mt0'>True</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='conditionresultfalse'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>False</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Represents false (evaluates to 0 in numeric context)</p>
+
+    <div class='pre p1 fill-light mt0'>False</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+</div>
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='additionoperator'>
+      AdditionOperator
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Addition operator (+)</p>
+
+    <div class='pre p1 fill-light mt0'>AdditionOperator</div>
+  
+    <p>
+      Type:
+      <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>
+    </p>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='subtractionoperator'>
+      SubtractionOperator
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Subtraction operator (-)</p>
+
+    <div class='pre p1 fill-light mt0'>SubtractionOperator</div>
+  
+    <p>
+      Type:
+      <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>
+    </p>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='divisionoperator'>
+      DivisionOperator
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Division operator (/)</p>
+
+    <div class='pre p1 fill-light mt0'>DivisionOperator</div>
+  
+    <p>
+      Type:
+      <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>
+    </p>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='multiplicationoperator'>
+      MultiplicationOperator
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Multiplication operator (*)</p>
+
+    <div class='pre p1 fill-light mt0'>MultiplicationOperator</div>
+  
+    <p>
+      Type:
+      <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>
+    </p>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='exponentialoperator'>
+      ExponentialOperator
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Exponential operator (^)</p>
+
+    <div class='pre p1 fill-light mt0'>ExponentialOperator</div>
+  
+    <p>
+      Type:
+      <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>
+    </p>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='modulooperator'>
+      ModuloOperator
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Modulo operator (%)</p>
+
+    <div class='pre p1 fill-light mt0'>ModuloOperator</div>
+  
+    <p>
+      Type:
+      <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>
+    </p>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='logicalandoperator'>
+      LogicalAndOperator
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Logical AND operator (&#x26;&#x26;)</p>
+
+    <div class='pre p1 fill-light mt0'>LogicalAndOperator</div>
+  
+    <p>
+      Type:
+      <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>
+    </p>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='logicaloroperator'>
+      LogicalOrOperator
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Logical OR operator (||)</p>
+
+    <div class='pre p1 fill-light mt0'>LogicalOrOperator</div>
+  
+    <p>
+      Type:
+      <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>
+    </p>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='greaterthanoperator'>
+      GreaterThanOperator
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Greater than operator (>)</p>
+
+    <div class='pre p1 fill-light mt0'>GreaterThanOperator</div>
+  
+    <p>
+      Type:
+      <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>
+    </p>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='lessthanoperator'>
+      LessThanOperator
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Less than operator (&#x3C;)</p>
+
+    <div class='pre p1 fill-light mt0'>LessThanOperator</div>
+  
+    <p>
+      Type:
+      <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>
+    </p>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='greaterthanorequaloperator'>
+      GreaterThanOrEqualOperator
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Greater than or equal operator (>=)</p>
+
+    <div class='pre p1 fill-light mt0'>GreaterThanOrEqualOperator</div>
+  
+    <p>
+      Type:
+      <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>
+    </p>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='lessthanorequaloperator'>
+      LessThanOrEqualOperator
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Less than or equal operator (&#x3C;=)</p>
+
+    <div class='pre p1 fill-light mt0'>LessThanOrEqualOperator</div>
+  
+    <p>
+      Type:
+      <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>
+    </p>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='equaloperator'>
+      EqualOperator
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Equality operator (==)</p>
+
+    <div class='pre p1 fill-light mt0'>EqualOperator</div>
+  
+    <p>
+      Type:
+      <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>
+    </p>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='notequaloperator'>
+      NotEqualOperator
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Inequality operator (!=)</p>
+
+    <div class='pre p1 fill-light mt0'>NotEqualOperator</div>
+  
+    <p>
+      Type:
+      <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>
+    </p>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='assignmentoperator'>
+      AssignmentOperator
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Assignment operator (=)</p>
+
+    <div class='pre p1 fill-light mt0'>AssignmentOperator</div>
+  
+    <p>
+      Type:
+      <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>
+    </p>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='parenthesisopenoperator'>
+      ParenthesisOpenOperator
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Opening parenthesis (()</p>
+
+    <div class='pre p1 fill-light mt0'>ParenthesisOpenOperator</div>
+  
+    <p>
+      Type:
+      <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>
+    </p>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='parenthesiscloseoperator'>
+      ParenthesisCloseOperator
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Closing parenthesis ())</p>
+
+    <div class='pre p1 fill-light mt0'>ParenthesisCloseOperator</div>
+  
+    <p>
+      Type:
+      <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>
+    </p>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='colonoperator'>
+      ColonOperator
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Colon operator (:) - used in ternary operations</p>
+
+    <div class='pre p1 fill-light mt0'>ColonOperator</div>
+  
+    <p>
+      Type:
+      <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>
+    </p>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='questionmarkoperator'>
+      QuestionMarkOperator
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Question mark operator (?) - used in ternary operations</p>
+
+    <div class='pre p1 fill-light mt0'>QuestionMarkOperator</div>
+  
+    <p>
+      Type:
+      <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>
+    </p>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='backslashoperator'>
+      BackslashOperator
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Backslash operator ()</p>
+
+    <div class='pre p1 fill-light mt0'>BackslashOperator</div>
+  
+    <p>
+      Type:
+      <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>
+    </p>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='comparisonoperator'>
+      ComparisonOperator
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Array of all comparison operators</p>
+
+    <div class='pre p1 fill-light mt0'>ComparisonOperator</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='arithmeticoperator'>
+      ArithmeticOperator
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Array of all arithmetic operators</p>
+
+    <div class='pre p1 fill-light mt0'>ArithmeticOperator</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='operators'>
+      Operators
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Combined array of arithmetic and comparison operators plus ternary operator</p>
+
+    <div class='pre p1 fill-light mt0'>Operators</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='alloperators'>
+      AllOperators
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Array of all operators including parentheses and colon</p>
+
+    <div class='pre p1 fill-light mt0'>AllOperators</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='priority_1_operator'>
+      Priority_1_Operator
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Priority 1 operators (lowest precedence): addition and subtraction</p>
+
+    <div class='pre p1 fill-light mt0'>Priority_1_Operator</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='priority_2_operator'>
+      Priority_2_Operator
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Priority 2 operators: multiplication, division, modulo</p>
+
+    <div class='pre p1 fill-light mt0'>Priority_2_Operator</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='priority_3_operator'>
+      Priority_3_Operator
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Priority 3 operators (highest precedence): exponentiation</p>
+
+    <div class='pre p1 fill-light mt0'>Priority_3_Operator</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='priority_4_operator'>
+      Priority_4_Operator
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Priority 4 operators: comparisons and ternary</p>
+
+    <div class='pre p1 fill-light mt0'>Priority_4_Operator</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
 
   
 
