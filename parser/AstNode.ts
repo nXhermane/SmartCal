@@ -107,7 +107,7 @@ export class AstNode implements INode {
    * @returns {boolean} True if the operator is a comparison operator; otherwise, false.
    */
   private isComparisonOperator() {
-    if (ComparisonOperator.includes(this.operator as string)) return true;
+    if (ComparisonOperator.includes(this.operator as any)) return true;
     return false;
   }
 }

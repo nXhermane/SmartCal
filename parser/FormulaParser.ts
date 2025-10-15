@@ -281,7 +281,7 @@ export class FormulaParser {
           ) {
             output.push(operators.pop()!);
           }
-        } else if (Operators.includes(operatorAndParenthesis)) {
+        } else if (Operators.includes(operatorAndParenthesis as typeof Operators[number])) {
           while (
             operators.length > 0 &&
             this.priority(operators[operators.length - 1]) >= priority
@@ -310,10 +310,10 @@ export class FormulaParser {
    * @returns {number} The priority level of the operator, where higher numbers indicate higher priority.
    */
   private priority(operator: string): number {
-    if (Priority_1_Operator.includes(operator)) return 1;
-    if (Priority_2_Operator.includes(operator)) return 2;
-    if (Priority_3_Operator.includes(operator)) return 3;
-    if (Priority_4_Operator.includes(operator)) return 4;
+    if (Priority_1_Operator.includes(operator as typeof Priority_1_Operator[number])) return 1;
+    if (Priority_2_Operator.includes(operator as typeof Priority_2_Operator[number])) return 2;
+    if (Priority_3_Operator.includes(operator as typeof Priority_3_Operator[number])) return 3;
+    if (Priority_4_Operator.includes(operator as typeof Priority_4_Operator[number])) return 4;
     return 0;
   }
   /**
@@ -330,7 +330,7 @@ export class FormulaParser {
    * @returns  {boolean} -True if the token is an operator or parenthesis; otherwise, false.
    */
   private isOperatorFirstAndParenthesis(token: string | number): boolean {
-    if (AllOperators.includes(String(token).trim())) return true;
+    if (AllOperators.includes(String(token).trim() as typeof AllOperators[number])) return true;
     return false;
   }
   /**
@@ -342,7 +342,7 @@ export class FormulaParser {
    * @returns {boolean} -True if the token is an arithmetic operator; otherwise, false.
    */
   private isArithmeticOperator(token: string | number): boolean {
-    if (ArithmeticOperator.includes(token as string)) return true;
+    if (ArithmeticOperator.includes(token as any)) return true;
     return false;
   }
   /**
@@ -354,7 +354,7 @@ export class FormulaParser {
    * @returns {boolean} -  True if the token is a comparison operator; otherwise, false.
    */
   private isComparisonOperator(token: string | number) {
-    if (ComparisonOperator.includes(token as string)) return true;
+    if (ComparisonOperator.includes(token as any)) return true;
     return false;
   }
   /**
@@ -367,7 +367,7 @@ export class FormulaParser {
    */
 
   private isTernaryOperator(token: string | number): boolean {
-    return QuestionMarkOperator === (token as string);
+    return QuestionMarkOperator === token;
   }
   /**
    * Checks if the provided token is a valid value.

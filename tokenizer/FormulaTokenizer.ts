@@ -43,11 +43,11 @@ export class FormulaTokenizer {
         const secondPop = filteredTokens.pop();
 
         if (firstPop !== undefined) {
-          const isSign = SignOperators.includes(firstPop as string);
+          const isSign = SignOperators.includes(firstPop as any);
           const isPrecededByOperator =
             secondPop !== undefined &&
             typeof secondPop === "string" &&
-            Operators.includes(secondPop);
+            Operators.includes(secondPop as any);
           const isPrecededByParen = secondPop === ParenthesisOpenOperator;
           const isAtStart = secondPop === undefined;
 
