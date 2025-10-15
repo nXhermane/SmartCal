@@ -97,7 +97,7 @@ export class FormulaInterpreter {
       if (typeof value === "number") {
         return ExpressionConstructor.literalValue<T>(Number(astTree.value));
       } else {
-        const regex = /["']([\w]+)["']/;
+        const regex = /["']([^"']+)["']/;
         const stringValue = value.match(regex)![1];
         return ExpressionConstructor.literalValue<T, string>(
           stringValue as string

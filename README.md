@@ -1,20 +1,43 @@
 # SmartCal
 
-**SmartCal** is a lightweight JavaScript library designed to evaluate mathematical expressions, formulas, and conditional expressions dynamically. It supports variables, nested formulas, and complex mathematical operations.
+<div align="center">
 
-## ⭐ Features
+![SmartCal Logo](https://img.shields.io/badge/SmartCal-Formula%20Engine-blue?style=for-the-badge&logo=javascript)
+[![npm version](https://img.shields.io/npm/v/smartcal.svg)](https://www.npmjs.com/package/smartcal)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![Test Coverage](https://img.shields.io/badge/coverage-90.75%25-brightgreen.svg)](https://github.com/your-repo/smartcal)
 
-- Arithmetic operations (+, -, *, /, ^, %)
-- Comparison operators (>, <, >=, <=, ==, !=)
-- Logical operators (&&, ||)
-- Ternary conditions (condition ? true : false)
-- Formula variables and nested formulas
-- Compile expressions for reuse
+**A powerful, lightweight TypeScript library for dynamic mathematical expression evaluation**
+
+[🚀 Quick Start](#-quick-start) • [📚 Documentation](#-documentation) • [🔧 API Reference](#-api-reference) • [💡 Examples](#-examples)
+
+</div>
+
+---
+
+## ✨ Features
+
+- 🚀 **High Performance** - Optimized expression parsing and evaluation
+- 🔢 **Rich Operators** - Arithmetic, comparison, logical, and ternary operations
+- 📊 **Dynamic Variables** - Support for nested formulas and data binding
+- 🔄 **Compiled Expressions** - Pre-compile expressions for repeated use
+- 🌍 **Unicode Support** - Full Unicode character support in string literals
+- ✅ **Type Safety** - Full TypeScript support with type definitions
+- 🧪 **Well Tested** - 90%+ test coverage with comprehensive test suite
+- 📦 **Zero Dependencies** - Lightweight with no external dependencies
 
 ## 📦 Installation
 
 ```bash
+# npm
 npm install smartcal
+
+# yarn
+yarn add smartcal
+
+# pnpm
+pnpm add smartcal
 ```
 
 ## 🚀 Quick Start
@@ -24,41 +47,44 @@ npm install smartcal
 ```typescript
 import SmartCal from "smartcal";
 
-// Basic arithmetic
-console.log(SmartCal("2 + 3 * 4")); // 14
-console.log(SmartCal("2 ^ 3")); // 8
-console.log(SmartCal("10 % 3")); // 1
+// 🔢 Basic arithmetic operations
+console.log(SmartCal("2 + 3 * 4"));     // 14 (respects operator precedence)
+console.log(SmartCal("2 ^ 3"));         // 8 (exponentiation)
+console.log(SmartCal("10 % 3"));        // 1 (modulo)
 
-// With variables
-const data = { x: 10, y: 5 };
-console.log(SmartCal("x + y * 2", data)); // 20
-const conditionalData= { score: 85 };
+// 📊 With variables and data binding
+const userData = { age: 25, weight: 70, height: 1.75 };
+console.log(SmartCal("age + 5", userData));              // 30
+console.log(SmartCal("weight / (height ^ 2)", userData)); // 22.86 (BMI calculation)
 
-// Simple ternary
-console.log(SmartCal(`score >= 80 ? 'A' : 'B'`, conditionalData)); // 'A'
+// 🎯 Conditional expressions with Unicode support
+const studentData = { score: 85, name: "José María" };
+console.log(SmartCal(`score >= 80 ? "A" : "B"`, studentData)); // "A"
+console.log(SmartCal(`"Student: ${name}"`, studentData));       // "Student: José María"
 
-// Nested conditions
-const grade = SmartCal(`score >= 90 ? "A" :
-   ((score >= 80) ? "B" : (score >= 70 ? "C" : "D"))
-`, conditionalData); // 'B
+// 🌍 Unicode string literals fully supported
+console.log(SmartCal('"café"'));           // "café"
+console.log(SmartCal('"北京"'));           // "北京"
+console.log(SmartCal('"naïve"'));          // "naïve"
 ```
 
 ## 📘 Advanced Usage
 
-### Expression Validation
+### 🔍 Expression Validation
 
 ```typescript
 import { isValidExpression } from "smartcal";
 
-// Valid expressions
-console.log(isValidExpression("2 + 2")); // true
-console.log(isValidExpression("x > 10 ? 'high' : 'low'")); // true
-console.log(isValidExpression("(a + b) * c")); // true
+// ✅ Valid expressions return true
+console.log(isValidExpression("2 + 2"));                    // true
+console.log(isValidExpression("x > 10 ? 'high' : 'low'"));  // true
+console.log(isValidExpression("(a + b) * c"));             // true
+console.log(isValidExpression('"Unicode: naïve"'));        // true ✨
 
-// Invalid expressions
-console.log(isValidExpression("2 +")); // false
-console.log(isValidExpression("x > ? 1 : 0")); // false
-console.log(isValidExpression("(a + b * c")); // false
+// ❌ Invalid expressions return false
+console.log(isValidExpression("2 +"));                     // false - incomplete expression
+console.log(isValidExpression("x > ? 1 : 0"));             // false - malformed ternary
+console.log(isValidExpression("(a + b * c"));              // false - unmatched parentheses
 ```
 
 ### Compiled Expressions

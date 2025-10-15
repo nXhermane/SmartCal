@@ -55,4 +55,15 @@ describe("FormulaInterpreter", () => {
   test("should throw an error for undefined variables", () => {
     expect(() => evaluate("f_x + f_z")).toThrow("The variable f_z not defined.");
   });
+  test("should evaluate string literals with Unicode characters", () => {
+    expect(evaluate('"cnt_phase_aiguë"')).toBe("cnt_phase_aiguë");
+    expect(evaluate("'café'")).toBe("café");
+    expect(evaluate('"北京"')).toBe("北京");
+  });
+
+  test("should evaluate expressions with Unicode string comparisons", () => {
+    const data = { phase: "cnt_phase_aiguë" };
+    expect(evaluate('phase == "cnt_phase_aiguë"', data)).toBe(1);
+    expect(evaluate('phase == "different"', data)).toBe(0);
+  });
 });

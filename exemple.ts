@@ -75,3 +75,14 @@ console.log(SmartCal(arroundHeight,{height: 80.9}))
 
 console.log(SmartCal("-5 + -2"))
 console.log(SmartCal("1 && 0"))
+console.log(SmartCal("\"cnt_phase_aigu\""))
+console.log(SmartCal(`(current_care_phase == "cnt_phase_aiguë") && (age_in_month >=6)`,{
+   current_care_phase: "cnt_phase_aiguë",
+   age_in_month: 8
+
+}))
+// Test additional Unicode characters
+console.log(SmartCal(`"café"`)); // Should work with accented characters
+console.log(SmartCal(`"naïve"`)); // Should work with diaeresis
+console.log(SmartCal(`"résumé"`)); // Should work with accents
+console.log(SmartCal(`"北京"`)); // Should work with Chinese characters

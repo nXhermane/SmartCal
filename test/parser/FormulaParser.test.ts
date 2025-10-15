@@ -92,4 +92,19 @@ describe("FormulaParser", () => {
       expect(() => parser.execute(tokens)).toThrow();
     });
   });
+    test("should validate formulas with Unicode string literals", () => {
+      const tokens = tokenizer.execute('"cnt_phase_aiguë"');
+      expect(parser.isValidFormula(tokens)).toBe(true);
+
+      const tokens2 = tokenizer.execute("'café'");
+      expect(parser.isValidFormula(tokens2)).toBe(true);
+    });
+
+    test("should parse AST for Unicode string literals", () => {
+      const tokens = tokenizer.execute('"cnt_phase_aiguë"');
+      const ast = parser.execute(tokens);
+
+      expect(ast.isValue()).toBe(true);
+      expect(ast.value).toBe('"cnt_phase_aiguë"');
+    });
 });

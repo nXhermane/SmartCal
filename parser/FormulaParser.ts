@@ -107,8 +107,8 @@ export class FormulaParser {
       throw new IncorrectSyntaxError("Incorrect Operator error", expression);
     }
     // When tokens length is equal to one and the token is an string or number without operator , just return because is just an operand
-    if (tokens.length == 1 && /\w/.test(expression)) return;
-    const validOperationCheckerRegex = />=|<=|==|!=|&&|\|\||[+-\/*<>%\^][\w\(]/;
+    if (tokens.length == 1 && (/\w/.test(expression) || /["'][^"']+["']/.test(expression))) return;
+    const validOperationCheckerRegex = />=|<=|==|!=|&&|\|\||[+-\/*<>%\^][\w\(\u0080-\uFFFF]/;
     if (!validOperationCheckerRegex.test(expression)) {
       throw new IncorrectSyntaxError(
         "Incorrect Operator position for Operand",
@@ -378,7 +378,7 @@ export class FormulaParser {
    * @returns {boolean} - True if the token is a valid value; otherwise, false.
    */
   private isValue(token: string | number): boolean {
-    const valueRegex = /["'][\w]+["']/;
+    const valueRegex = /["'][^"']+["']/;
     return typeof token === "number" || valueRegex.test(token) ? true : false;
   }
 }
