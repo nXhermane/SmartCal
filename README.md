@@ -7,7 +7,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 [![Test Coverage](https://img.shields.io/badge/coverage-90.75%25-brightgreen.svg)](https://github.com/nXhermane/SmartCal)
-[![Build Status](https://img.shields.io/github/actions/workflow/status/your-repo/smartcal/ci.yml)](https://github.com/nXhermane/SmartCal/actions)
+[![Build Status](https://img.shields.io/github/actions/workflow/status/nXhermane/SmartCal/ci.yml)](https://github.com/nXhermane/SmartCal/actions)
 [![Downloads](https://img.shields.io/npm/dm/smartcal)](https://www.npmjs.com/package/smartcal)
 
 **A powerful, lightweight TypeScript library for dynamic mathematical expression evaluation**
@@ -344,7 +344,7 @@ We welcome contributions! Here's how you can help:
 ### Development Setup
 
 ```bash
-git clone https://github.com/your-repo/smartcal.git
+git clone https://github.com/nXhermane/SmartCal.git
 cd smartcal
 npm install
 npm run build
@@ -381,6 +381,6 @@ This project is licensed under the [MIT License](./LISENCE).
 
 **Made with ❤️ by the SmartCal team**
 
-[⭐ Star us on GitHub](https://github.com/your-repo/smartcal) • [🐛 Report Issues](https://github.com/your-repo/smartcal/issues) • [💬 Join Discussions](https://github.com/your-repo/smartcal/discussions)
+[⭐ Star us on GitHub](https://github.com/nXhermane/SmartCal) • [🐛 Report Issues](https://github.com/nXhermane/SmartCal/issues) • [💬 Join Discussions](https://github.com/nXhermane/SmartCal/discussions)
 
 </div>
