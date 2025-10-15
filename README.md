@@ -6,13 +6,29 @@
 [![npm version](https://img.shields.io/npm/v/smartcal.svg)](https://www.npmjs.com/package/smartcal)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
-[![Test Coverage](https://img.shields.io/badge/coverage-90.75%25-brightgreen.svg)](https://github.com/your-repo/smartcal)
+[![Test Coverage](https://img.shields.io/badge/coverage-90.75%25-brightgreen.svg)](https://github.com/nXhermane/SmartCal)
+[![Build Status](https://img.shields.io/github/actions/workflow/status/your-repo/smartcal/ci.yml)](https://github.com/nXhermane/SmartCal/actions)
+[![Downloads](https://img.shields.io/npm/dm/smartcal)](https://www.npmjs.com/package/smartcal)
 
 **A powerful, lightweight TypeScript library for dynamic mathematical expression evaluation**
 
-[🚀 Quick Start](#-quick-start) • [📚 Documentation](#-documentation) • [🔧 API Reference](#-api-reference) • [💡 Examples](#-examples)
+[🚀 Quick Start](#-quick-start) • [📚 Documentation](#-documentation) • [🔧 API Reference](#-api-reference) • [💡 Examples](#-examples) • [🤝 Contributing](#-contributing)
 
 </div>
+
+---
+
+## 📋 Table of Contents
+
+- [✨ Features](#-features)
+- [📦 Installation](#-installation)
+- [🚀 Quick Start](#-quick-start)
+- [📘 Advanced Usage](#-advanced-usage)
+- [📖 Documentation](#-documentation)
+- [🔧 API Reference](#-api-reference)
+- [⚠️ Important Notes](#️-important-notes)
+- [🤝 Contributing](#-contributing)
+- [📄 License](#-license)
 
 ---
 
@@ -26,6 +42,8 @@
 - ✅ **Type Safety** - Full TypeScript support with type definitions
 - 🧪 **Well Tested** - 90%+ test coverage with comprehensive test suite
 - 📦 **Zero Dependencies** - Lightweight with no external dependencies
+- 🔧 **Formula Variables** - Support for complex nested formula definitions
+- 🎯 **Conditional Logic** - Advanced ternary operations and boolean handling
 
 ## 📦 Installation
 
@@ -39,6 +57,11 @@ yarn add smartcal
 # pnpm
 pnpm add smartcal
 ```
+
+### Requirements
+
+- **Node.js**: >= 14.0.0
+- **TypeScript**: >= 4.0.0 (for TypeScript projects)
 
 ## 🚀 Quick Start
 
@@ -170,13 +193,28 @@ console.log(SmartCal("f_grandTotal", orderData)); // 112 (120 * 0.85 + 10)
 
 ### Supported Operators
 
-- Arithmetic: `+`, `-`, `*`, `/`, `^`, `%`
-- Comparison: `>`, `<`, `>=`, `<=`, `==`, `!=`
-- Logical: `&&`, `||`
-- Ternary: `?`, `:`
-- Grouping: `(`, `)`
+| Category | Operators | Description |
+|----------|-----------|-------------|
+| **Arithmetic** | `+`, `-`, `*`, `/`, `^`, `%` | Basic math operations |
+| **Comparison** | `>`, `<`, `>=`, `<=`, `==`, `!=` | Value comparisons |
+| **Logical** | `&&`, `\|\|` | Boolean operations |
+| **Ternary** | `?`, `:` | Conditional expressions |
+| **Grouping** | `(`, `)` | Expression precedence |
+
+### Operator Precedence
+
+1. **Parentheses**: `( )`
+2. **Exponentiation**: `^`
+3. **Multiplication/Division/Modulo**: `*`, `/`, `%`
+4. **Addition/Subtraction**: `+`, `-`
+5. **Comparisons**: `>`, `<`, `>=`, `<=`, `==`, `!=`
+6. **Logical AND**: `&&`
+7. **Logical OR**: `\|\|`
+8. **Ternary**: `? :`
 
 ### API Reference
+
+#### Core Functions
 
 ```typescript
 // Simple evaluation
@@ -187,11 +225,28 @@ isValidExpression(expression: string): boolean
 
 // Compilation for reuse
 compile(expression: string): CompiledExpression
+```
 
-// CompiledExpression interface
+#### Interfaces
+
+```typescript
 interface CompiledExpression {
+    type: "CompiledExpression";
     evaluate<T>(data: T): number | string;
     toString(): string;
+}
+
+interface DataType {
+    [key: string]: any;
+}
+```
+
+#### Constants
+
+```typescript
+enum ConditionResult {
+    True = 1,
+    False = 0
 }
 ```
 
@@ -216,10 +271,116 @@ const data = {
 const expression = `bool ? "True" : bool2 ? "False" : "True"`
 ```
 
+## 🐛 Troubleshooting
+
+### Common Issues
+
+**Expression parsing errors:**
+```typescript
+// ❌ Wrong: Incomplete ternary
+SmartCal("x > 5 ? 'high'");
+
+// ✅ Correct: Complete ternary
+SmartCal("x > 5 ? 'high' : 'low'");
+```
+
+**Variable resolution:**
+```typescript
+// ❌ Wrong: Undefined variables
+SmartCal("undefinedVar + 1"); // Throws error
+
+// ✅ Correct: Provide data object
+SmartCal("definedVar + 1", { definedVar: 5 });
+```
+
+**Unicode handling:**
+```typescript
+// ✅ Unicode strings work
+SmartCal('"café"'); // "café"
+SmartCal('"北京"'); // "北京"
+```
+
+### FAQ
+
+**Q: How do I use boolean values in expressions?**
+```typescript
+import { ConditionResult } from "smartcal";
+
+const data = {
+    isActive: ConditionResult.True, // 1
+    isInactive: ConditionResult.False // 0
+};
+
+SmartCal("isActive && isInactive", data); // false
+```
+
+**Q: Can I nest compiled expressions?**
+```typescript
+const discountCalc = compile("price >= 100 ? price * 0.1 : 0");
+const finalPrice = compile("basePrice - discountCalc");
+
+finalPrice.evaluate({
+    basePrice: 120,
+    price: 120,
+    discountCalc
+}); // 108
+```
+
+**Q: How do formula variables work?**
+```typescript
+const data = {
+    f_subtotal: "quantity * price",
+    f_tax: "f_subtotal * 0.2",
+    f_total: "f_subtotal + f_tax"
+};
+
+SmartCal("f_total", data); // Evaluates nested formulas
+```
+
 ## 🤝 Contributing
 
-Contributions are welcome! Please feel free to submit a Pull Request.
+We welcome contributions! Here's how you can help:
+
+### Development Setup
+
+```bash
+git clone https://github.com/your-repo/smartcal.git
+cd smartcal
+npm install
+npm run build
+npm test
+```
+
+### Guidelines
+
+- Follow TypeScript best practices
+- Add tests for new features
+- Update documentation
+- Use conventional commits
+
+### Running Tests
+
+```bash
+# Run all tests
+npm test
+
+# Run with coverage
+npm run test:coverage
+
+# Run specific test file
+npm test -- test/parser/FormulaParser.test.ts
+```
 
 ## 📄 License
 
 This project is licensed under the [MIT License](./LISENCE).
+
+---
+
+<div align="center">
+
+**Made with ❤️ by the SmartCal team**
+
+[⭐ Star us on GitHub](https://github.com/your-repo/smartcal) • [🐛 Report Issues](https://github.com/your-repo/smartcal/issues) • [💬 Join Discussions](https://github.com/your-repo/smartcal/discussions)
+
+</div>

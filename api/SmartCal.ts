@@ -12,8 +12,32 @@ import { DataType } from "../types";
  * @template T - A generic type representing the structure of the input object. Keys are variable names, and values can be numbers, strings, or arrays.
  * @param {string} expression - The mathematical expression to be evaluated.
  *        Variables in the expression should correspond to keys in the `obj` parameter.
+ *        Supports arithmetic (+, -, *, /, ^, %), comparison (>, <, >=, <=, ==, !=),
+ *        logical (&&, ||), and ternary (? :) operators.
  * @param {T} obj - An object containing the values of the variables referenced in the expression.
- * @returns {number | string | any[]} - The result of the evaluated expression, which can be a number, a string, or an array depending on the expression's logic.
+ *        Can include nested formula variables prefixed with 'f_' and regular data variables.
+ * @returns {number | string} - The result of the evaluated expression, which can be a number or string.
+ *
+ * @example
+ * ```typescript
+ * // Basic arithmetic
+ * SmartCal("2 + 3 * 4"); // 14
+ *
+ * // With variables
+ * SmartCal("age + 5", { age: 25 }); // 30
+ *
+ * // With formula variables
+ * SmartCal("f_total", {
+ *   f_subtotal: "price * quantity",
+ *   f_total: "f_subtotal * 1.2",
+ *   price: 10,
+ *   quantity: 5
+ * }); // 60
+ * ```
+ *
+ * @throws {FormulaInterpreterError} When expression syntax is invalid or variables are undefined
+ * @throws {IncorrectSyntax} When expression has incorrect syntax
+ * @throws {InvalidFormulaError} When formula is malformed
  */
 export default function SmartCal<T extends DataType>(
   expression: string,

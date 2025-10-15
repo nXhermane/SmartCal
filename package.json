@@ -1,7 +1,7 @@
 {
   "name": "smartcal",
   "version": "1.0.11",
-  "description": "SmartCal is a lightweight and powerful library for evaluating complex mathematical expressions dynamically. It supports tokenization, parsing, and interpreting mathematical formulas seamlessly, offering flexibility to integrate custom data objects for dynamic calculations. Ideal for developers needing a robust calculation engine in JavaScript/TypeScript projects.",
+  "description": "A powerful, lightweight TypeScript library for dynamic mathematical expression evaluation with support for variables, formulas, Unicode strings, and compiled expressions for high performance.",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "exports": {
@@ -13,7 +13,9 @@
   "files": [
     "./dist",
     "./LISENCE",
-    "./README.md"
+    "./README.md",
+    "./CHANGELOG.md",
+    "./docs"
   ],
   "repository": {
     "type": "git",
@@ -23,9 +25,11 @@
     "build": "webpack && node clean-empty-dirs.js",
     "build:doc:html": "npx documentation build api/**/*.ts expression/**/*.ts -f html -o docs",
     "build:doc:md": "npx documentation build api/**/*.ts expression/**/*.ts -f md -o docs/Readme.md",
+    "build:docs": "mkdir -p docs && npx documentation build exemple.ts --config documentation.json --output docs/index.html && npx documentation build api/*.ts expression/*.ts --config documentation.json --output docs/api.html",
     "test": "jest",
     "test:coverage": "jest --coverage",
-    "dev": "nodemon exemple.ts"
+    "dev": "nodemon exemple.ts",
+    "docs": "npm run build:docs && echo 'Documentation generated in docs/'"
   },
   "keywords": [
     "smartcal",
@@ -40,7 +44,14 @@
     "typescript",
     "javascript",
     "math-engine",
-    "nutriwell"
+    "formula",
+    "mathematical-expression",
+    "evaluation",
+    "variables",
+    "unicode",
+    "compiled-expressions",
+    "ternary-operator",
+    "conditional-logic"
   ],
   "author": "nXhermane",
   "license": "ISC",
