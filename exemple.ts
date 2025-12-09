@@ -72,13 +72,14 @@ console.log("f_final =", SmartCal("f_final", productData)); // 450 (500 * 0.9)
 console.log("\n=== Conditional Expressions ===");
 const studentData = { score: 85, name: "José María" };
 console.log(`score >= 80 ? "A" : "B" =`, SmartCal(`score >= 80 ? "A" : "B"`, studentData)); // "A"
-console.log(`"Student: ${name}" =`, SmartCal(`"Student: ${name}"`, studentData)); // "Student: José María"
+// console.log(`"Student: " =`, SmartCal(`"Student: " + name`, studentData)); // "Student: José María"
 
 // Example 5: Unicode string literals
 console.log("\n=== Unicode Support ===");
 console.log('SmartCal("café") =', SmartCal('"café"')); // "café"
 console.log('SmartCal("北京") =', SmartCal('"北京"')); // "北京"
 console.log('SmartCal("naïve") =', SmartCal('"naïve"')); // "naïve"
+console.log('SmartCal("\"cnt_phase_transition\"") =',SmartCal(`(current_care_phase == \"cnt_phase_transition\")`,{current_care_phase: "hello"})) // cnt_phase_transition
 
 // Example 6: Expression validation
 console.log("\n=== Expression Validation ===");

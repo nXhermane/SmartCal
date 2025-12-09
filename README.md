@@ -7,7 +7,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 [![Test Coverage](https://img.shields.io/badge/coverage-90.75%25-brightgreen.svg)](https://github.com/nXhermane/SmartCal)
-[![Build Status](https://img.shields.io/github/actions/workflow/status/nXhermane/SmartCal/ci.yml)](https://github.com/nXhermane/SmartCal/actions)
+[![Build Status](https://github.com/nXhermane/SmartCal/actions/workflows/docs.yml/badge.svg)](https://nXhermane/actions/workflows/docs.yml)
 [![Downloads](https://img.shields.io/npm/dm/smartcal)](https://www.npmjs.com/package/smartcal)
 
 **A powerful, lightweight TypeScript library for dynamic mathematical expression evaluation**
